@@ -1,6 +1,7 @@
 {
   "singleQuote": true,
   "jsxSingleQuote": true,
+  "endOfLine": "lf",
   "arrowParens": "always",
   "max-len": ["error", 140, 2],
   "tabWidth": 2,
