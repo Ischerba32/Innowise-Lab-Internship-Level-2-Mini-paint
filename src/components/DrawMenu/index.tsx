@@ -1,13 +1,13 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Button } from '../UI';
+import MenuProps from './props';
 import styles from './styles.module.scss';
 
-export interface MenuProps {
-	setLineColor: Dispatch<SetStateAction<string>>;
-	setLineWidth: Dispatch<SetStateAction<number>>;
-	setLineOpacity: Dispatch<SetStateAction<number>>;
-}
-
-const Menu = ({ setLineColor, setLineWidth, setLineOpacity }: MenuProps) => {
+const Menu = ({
+	setLineColor,
+	setLineWidth,
+	setLineOpacity,
+	handleSaveButton,
+}: MenuProps) => {
 	return (
 		<div className={styles.menu}>
 			<label>Brush Color </label>
@@ -20,8 +20,8 @@ const Menu = ({ setLineColor, setLineWidth, setLineOpacity }: MenuProps) => {
 			<label>Brush Width </label>
 			<input
 				type='range'
-				min='3'
-				max='20'
+				min='1'
+				max='100'
 				onChange={(e) => {
 					setLineWidth(+e.target.value);
 				}}
@@ -29,12 +29,15 @@ const Menu = ({ setLineColor, setLineWidth, setLineOpacity }: MenuProps) => {
 			<label>Brush Opacity</label>
 			<input
 				type='range'
-				min='1'
+				min='0'
 				max='100'
 				onChange={(e) => {
 					setLineOpacity(+e.target.value / 100);
 				}}
 			/>
+			<Button appearance='primary' onClick={handleSaveButton}>
+				Save
+			</Button>
 		</div>
 	);
 };
