@@ -1,7 +1,7 @@
 import { MouseEvent, useContext, useEffect, useRef, useState } from 'react';
 import styles from './styles.module.scss';
 import Menu from '../DrawMenu';
-import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { toast, ToastContainer } from 'react-toastify';
 import { ref as refDB, set } from 'firebase/database';
@@ -25,6 +25,7 @@ const Draw = () => {
 	useEffect(() => {
 		const canvas = canvasRef.current;
 		const ctx = canvas?.getContext('2d');
+
 		if (ctx) {
 			ctx.lineCap = 'round';
 			ctx.lineJoin = 'round';
@@ -35,7 +36,6 @@ const Draw = () => {
 		}
 	}, [lineColor, lineOpacity, lineWidth]);
 
-	// Function for starting the drawing
 	const startDrawing = (e: MouseEvent<HTMLCanvasElement>) => {
 		ctxRef.current?.beginPath();
 		ctxRef.current?.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
@@ -64,22 +64,24 @@ const Draw = () => {
 		canvasRef.current?.toBlob((blob: Blob | null) => {
 			blob &&
 				uploadBytes(storageRef, blob)
-					.then(() => {
+					.then((snapshot) => {
+						getDownloadURL(snapshot.ref).then((url) => {
+							saveImageToDB(url);
+						});
 						toast.success('Image saved successfully');
 					})
 					.catch((error) => {
 						toast.error((error as Error).message);
 					});
 		}, 'image/webp');
-		await saveImageToDB();
 	};
 
-	const saveImageToDB = async () => {
+	const saveImageToDB = async (url: string) => {
 		const newImageRef = refDB(database, `images/${imageId}`);
 		await set(newImageRef, {
 			imageId,
 			userId: uid,
-			image: `images/${imageId}.webp`,
+			image: url,
 			date: moment().format('YYYY-MM-DD'),
 		});
 	};

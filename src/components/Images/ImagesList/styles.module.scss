@@ -1,0 +1,17 @@
+.images {
+  &__container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 15px;
+    margin: 20px 0;
+  }
+
+  &__create {
+    button {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+}
