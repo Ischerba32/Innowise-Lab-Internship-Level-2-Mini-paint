@@ -1,22 +1,24 @@
-.draw {
+.canvas {
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-image: linear-gradient(
-    120deg, #fdfbfb 0%, #ebedee 100%);
+  color: var(--text-color);
 
-  &__area {
+  &__wrapper {
     width: 1280px;
     height: 720px;
     border: 2px solid #808080;
     position: relative;
+    margin-top: 10px;
     background-color: var(--white);
-  }
-
-  canvas {
     cursor: crosshair;
+
+    & canvas {
+      position: absolute;
+    }
   }
 }
+

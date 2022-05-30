@@ -1,11 +1,14 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AuthRoute from './components/AuthRoute';
-import Draw from './components/Draw';
+import Canvas from './components/Canvas';
 import Home from './components/Home';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
+import { useTheme } from './hooks/useTheme';
 
 function App() {
+	const { theme } = useTheme();
+
 	return (
 		<Router>
 			<Routes>
@@ -21,7 +24,7 @@ function App() {
 					path='/draw'
 					element={
 						<AuthRoute>
-							<Draw />
+							<Canvas />
 						</AuthRoute>
 					}
 				></Route>

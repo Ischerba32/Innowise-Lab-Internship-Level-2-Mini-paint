@@ -7,6 +7,10 @@
     height: auto;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   &__info {
     text-align: center;
     background: var(--card-blue);
