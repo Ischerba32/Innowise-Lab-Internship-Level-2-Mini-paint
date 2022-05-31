@@ -7,12 +7,58 @@
   align-items: center;
   background-color: #a3a3a32d;
 
+  input {
+    width: 100%;
+  }
+
+  input[type=range] {
+    -webkit-appearance: none;
+    height: 5px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+    }
+
+    &::-moz-range-thumb {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+    }
+  }
+
+  &__tools {}
+
   &__color {}
 
   &__width {}
 
   &__opacity {}
 
-  &__actions {}
+  &__actions {
+
+    button {
+      &:first-child {
+        margin-right: 5px;
+      }
+
+      &:last-child {
+        margin-left: 5px;
+      }
+    }
+  }
 
 }

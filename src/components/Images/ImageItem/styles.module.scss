@@ -2,6 +2,11 @@
   width: 25%;
   padding: 10px;
 
+  &:hover {
+    transform: translateY(-15px);
+    transition: transform 0.2s linear;
+  }
+
   img {
     max-width: 100%;
     height: auto;

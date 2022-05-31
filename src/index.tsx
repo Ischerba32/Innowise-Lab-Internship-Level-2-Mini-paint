@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './styles/globals.scss';
+import './components/Select/customSelect.scss';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 ReactDOM.render(

@@ -15,8 +15,8 @@ import { Tools } from '../../interfaces/hooks/useDraw.interface';
 const Canvas = () => {
 	const [tool, setTool] = useState(Tools.PEN);
 	const [lineColor, setLineColor] = useState('black');
-	const [lineWidth, setLineWidth] = useState(3);
-	const [lineOpacity, setLineOpacity] = useState(1);
+	const [lineWidth, setLineWidth] = useState(10);
+	const [lineOpacity, setLineOpacity] = useState(0.5);
 
 	const imageId = uuidv4();
 
@@ -67,6 +67,8 @@ const Canvas = () => {
 	return (
 		<div className={styles.canvas}>
 			<CanvasMenu
+				lineWidth={lineWidth}
+				lineOpacity={lineOpacity}
 				setTool={setTool}
 				setLineColor={setLineColor}
 				setLineWidth={setLineWidth}

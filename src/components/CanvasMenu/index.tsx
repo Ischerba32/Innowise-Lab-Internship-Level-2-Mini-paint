@@ -1,34 +1,40 @@
+import { SingleValue } from 'react-select';
 import { Tools } from '../../interfaces/hooks/useDraw.interface';
+import CustomSelect from '../Select';
+import { OptionParams } from '../Select/props';
 import { Button } from '../UI';
-import MenuProps from './props';
+import CanvasMenuProps from './props';
 import styles from './styles.module.scss';
 
+// Mocked tools for select
+const OPTIONS = [
+	{ value: Tools.PEN, label: 'Pen' },
+	{ value: Tools.CIRCLE, label: 'Circle' },
+	{ value: Tools.RECTANGLE, label: 'Rectangle' },
+	{ value: Tools.LINE, label: 'Line' },
+];
+
 const CanvasMenu = ({
+	lineWidth,
+	lineOpacity,
 	setTool,
 	setLineColor,
 	setLineWidth,
 	setLineOpacity,
 	handleSaveButton,
 	handleClearButton,
-}: MenuProps) => {
+}: CanvasMenuProps) => {
+	const handleChangeSelect = (newValue: SingleValue<string | OptionParams>) => {
+		setTool((newValue as OptionParams).value as Tools);
+	};
+
 	return (
 		<div className={styles.menu}>
 			<div className={styles.menu__tools}>
-				<Button appearance='ghost' onClick={() => setTool(Tools.PEN)}>
-					&#128396;
-				</Button>
-				<Button appearance='ghost' onClick={() => setTool(Tools.CIRCLE)}>
-					&#9675;
-				</Button>
-				<Button appearance='ghost' onClick={() => setTool(Tools.RECTANGLE)}>
-					&#9645;
-				</Button>
-				<Button appearance='ghost' onClick={() => setTool(Tools.LINE)}>
-					&#9585;
-				</Button>
+				<CustomSelect options={OPTIONS} onChange={handleChangeSelect} />
 			</div>
 			<div className={styles.menu__color}>
-				<label>Brush Color </label>
+				<label>Color</label>
 				<input
 					type='color'
 					onChange={(e) => {
@@ -42,6 +48,7 @@ const CanvasMenu = ({
 					type='range'
 					min='1'
 					max='100'
+					value={lineWidth}
 					onChange={(e) => {
 						setLineWidth(+e.target.value);
 					}}
@@ -53,6 +60,7 @@ const CanvasMenu = ({
 					type='range'
 					min='0'
 					max='100'
+					value={lineOpacity * 100}
 					onChange={(e) => {
 						setLineOpacity(+e.target.value / 100);
 					}}
