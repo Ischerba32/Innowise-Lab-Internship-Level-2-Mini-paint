@@ -3,7 +3,7 @@ import AuthForm from '../../interfaces/authForm.interface';
 
 export default interface AuthFormProps {
 	onSubmit: SubmitHandler<AuthForm>;
-	// isLoading: boolean;
+	error?: string | null;
 	formAction: string;
 	actionLink?: string;
 	actionTitle?: string;

@@ -1,13 +1,17 @@
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import IAuthForm from '../../interfaces/authForm.interface';
 import { Button, Card, Input } from '../UI';
 import styles from './styles.module.scss';
 import AuthFormProps from './props';
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
+// import { useSelector } from 'react-redux';
+// import State from '../../interfaces/state.interface';
+// import { useTheme } from '../../hooks/useTheme';
 // import { useTheme } from '../../hooks/useTheme';
 
 const AuthForm = ({
+	// error,
 	onSubmit,
 	formAction,
 	actionLink,
@@ -20,29 +24,11 @@ const AuthForm = ({
 		reset,
 		clearErrors,
 	} = useForm<IAuthForm>();
-	// const { theme } = useTheme();
-
-	const formSubmit = ({ email, password }: IAuthForm) => {
-		toast.promise(onSubmit({ email, password }), {
-			pending: {
-				render() {
-					return 'Please wait...';
-				},
-				icon: false,
-			},
-
-			error: {
-				render({ data }) {
-					return `${data.message}`;
-				},
-			},
-		});
-	};
 
 	return (
 		<div className={styles.loginForm}>
 			<Card color='blue' className={styles.loginCard}>
-				<form onSubmit={handleSubmit(formSubmit)}>
+				<form onSubmit={handleSubmit(onSubmit)}>
 					<Input
 						{...register('email', {
 							required: { value: true, message: 'Enter the email' },
@@ -77,7 +63,7 @@ const AuthForm = ({
 					</div>
 				</form>
 			</Card>
-			<ToastContainer
+			{/* <ToastContainer
 				position='top-right'
 				autoClose={5000}
 				hideProgressBar={false}
@@ -88,7 +74,7 @@ const AuthForm = ({
 				draggable
 				pauseOnHover
 				// theme={theme === 'light' ? 'light' : 'dark'}
-			/>
+			/> */}
 		</div>
 	);
 };

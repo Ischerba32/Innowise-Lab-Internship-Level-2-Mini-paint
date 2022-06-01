@@ -1,32 +1,58 @@
-import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 import { auth } from '../../config/firebase';
+import { useTheme } from '../../hooks/useTheme';
 import AuthFormParams from '../../interfaces/authForm.interface';
+import State from '../../interfaces/state.interface';
+import { signIn } from '../../redux/actions/userActions';
 import AuthForm from '../AuthForm';
 
 const SignIn = () => {
+	const { error, uid } = useSelector((state: State) => state.user);
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const { theme } = useTheme();
 
 	useEffect(() => {
 		const authCheck = onAuthStateChanged(auth, (user) => {
-			if (user) navigate('/');
+			if (user?.uid === uid) navigate('/');
 		});
 		authCheck();
-	}, [navigate]);
+	}, [navigate, uid]);
+
+	useEffect(() => {
+		if (error) {
+			toast.error(error);
+		}
+	}, [error]);
 
 	const handleSignIn = async ({ email, password }: AuthFormParams) => {
-		await signInWithEmailAndPassword(auth, email, password);
-		navigate('/');
+		dispatch(signIn({ email, password }));
 	};
 
 	return (
 		<>
 			<AuthForm
 				onSubmit={handleSignIn}
+				// error={error}
 				formAction='SignIn'
 				actionLink='/signup'
 				actionTitle='SignUp'
+			/>
+			<ToastContainer
+				position='top-right'
+				autoClose={5000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme={theme === 'light' ? 'light' : 'dark'}
 			/>
 		</>
 	);
