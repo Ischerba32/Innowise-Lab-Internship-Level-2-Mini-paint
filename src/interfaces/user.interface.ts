@@ -1,4 +1,3 @@
-import { type } from 'os';
 import { ActionTypes } from '../redux/actionTypes';
 import AuthFormParams from './authForm.interface';
 
@@ -33,8 +32,30 @@ interface SignUpSuccessAction {
 	payload: User;
 }
 
+interface SignUpErrorAction {
+	type: ActionTypes.SIGN_UP_ERROR;
+	payload: Error;
+}
+
 interface SignOutAction {
 	type: ActionTypes.SIGN_OUT;
+}
+
+interface SignOutSuccessAction {
+	type: ActionTypes.SIGN_OUT_SUCCESS;
+}
+
+interface SignOutErrorAction {
+	type: ActionTypes.SIGN_OUT_ERROR;
+	payload: Error;
+}
+
+interface CheckAuthAction {
+	type: ActionTypes.CHECK_AUTH;
+}
+interface CheckAuthSuccessAction {
+	type: ActionTypes.CHECK_AUTH_SUCCESS;
+	payload: User;
 }
 
 export type UserAction =
@@ -43,4 +64,9 @@ export type UserAction =
 	| SignInErrorAction
 	| SignUpAction
 	| SignUpSuccessAction
-	| SignOutAction;
+	| SignUpErrorAction
+	| SignOutAction
+	| SignOutSuccessAction
+	| SignOutErrorAction
+	| CheckAuthAction
+	| CheckAuthSuccessAction;

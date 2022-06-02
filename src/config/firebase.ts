@@ -1,5 +1,10 @@
 import * as firebase from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+	createUserWithEmailAndPassword,
+	getAuth,
+	signInWithEmailAndPassword,
+	signOut,
+} from 'firebase/auth';
 import { getDatabase, onValue, ref } from 'firebase/database';
 import { getStorage } from 'firebase/storage';
 import AuthFormParams from '../interfaces/authForm.interface';
@@ -30,4 +35,12 @@ export const fetchData = async (uid: string) => {
 
 export const handleSignIn = async ({ email, password }: AuthFormParams) => {
 	return await signInWithEmailAndPassword(auth, email, password);
+};
+
+export const handleSignUp = async ({ email, password }: AuthFormParams) => {
+	return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const handleSignOut = async () => {
+	return await signOut(auth);
 };

@@ -1,17 +1,11 @@
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import IAuthForm from '../../interfaces/authForm.interface';
 import { Button, Card, Input } from '../UI';
 import styles from './styles.module.scss';
 import AuthFormProps from './props';
-// import { ToastContainer, toast } from 'react-toastify';
-// import { useSelector } from 'react-redux';
-// import State from '../../interfaces/state.interface';
-// import { useTheme } from '../../hooks/useTheme';
-// import { useTheme } from '../../hooks/useTheme';
 
 const AuthForm = ({
-	// error,
 	onSubmit,
 	formAction,
 	actionLink,
@@ -63,18 +57,6 @@ const AuthForm = ({
 					</div>
 				</form>
 			</Card>
-			{/* <ToastContainer
-				position='top-right'
-				autoClose={5000}
-				hideProgressBar={false}
-				newestOnTop={false}
-				closeOnClick
-				rtl={false}
-				pauseOnFocusLoss
-				draggable
-				pauseOnHover
-				// theme={theme === 'light' ? 'light' : 'dark'}
-			/> */}
 		</div>
 	);
 };

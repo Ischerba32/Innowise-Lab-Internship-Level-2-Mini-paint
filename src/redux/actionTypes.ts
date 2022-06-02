@@ -5,8 +5,16 @@ export enum ActionTypes {
 
 	SIGN_UP = 'SIGN_UP',
 	SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS',
+	SIGN_UP_ERROR = 'SIGN_UP_ERROR',
 
 	SIGN_OUT = 'SIGN_OUT',
+	SIGN_OUT_SUCCESS = 'SIGN_OUT_SUCCESS',
+	SIGN_OUT_ERROR = 'SIGN_OUT_ERROR',
+
+	CHECK_AUTH = 'CHECK_AUTH',
+	CHECK_AUTH_SUCCESS = 'CHECK_AUTH_SUCCESS',
 
 	GET_IMAGES = 'GET_IMAGES',
 }
+
+// create one ERROR type for all cases of firebase auth

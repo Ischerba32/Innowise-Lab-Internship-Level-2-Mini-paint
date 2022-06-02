@@ -1,9 +1,10 @@
 import { onValue, ref } from 'firebase/database';
-import React, { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { database } from '../../../config/firebase';
-import { AuthContext } from '../../../context/auth.context';
 import Image from '../../../interfaces/image.interface';
+import State from '../../../interfaces/state.interface';
 import { Button } from '../../UI';
 import ImageItem from '../ImageItem';
 import styles from './styles.module.scss';
@@ -12,7 +13,8 @@ const ImagesList = () => {
 	const [loading, setLoading] = useState(false);
 	const [images, setImages] = useState<Image[] | null>([]);
 
-	const { uid } = useContext(AuthContext);
+	const { uid } = useSelector((state: State) => state.user);
+
 	const navigate = useNavigate();
 
 	const fetchData = async (uid: string) => {

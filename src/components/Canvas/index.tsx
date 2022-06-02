@@ -1,4 +1,4 @@
-import { memo, useContext, useState } from 'react';
+import { memo, useState } from 'react';
 import CanvasMenu from '../CanvasMenu';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
@@ -6,11 +6,12 @@ import { toast, ToastContainer } from 'react-toastify';
 import { ref as refDB, set } from 'firebase/database';
 import { database } from '../../config/firebase';
 import moment from 'moment';
-import { AuthContext } from '../../context/auth.context';
 import styles from './styles.module.scss';
 import { useDraw } from '../../hooks/useDraw';
 import { useTheme } from '../../hooks/useTheme';
 import { Tools } from '../../interfaces/hooks/useDraw.interface';
+import { useSelector } from 'react-redux';
+import State from '../../interfaces/state.interface';
 
 const Canvas = () => {
 	const [tool, setTool] = useState(Tools.PEN);
@@ -20,7 +21,7 @@ const Canvas = () => {
 
 	const imageId = uuidv4();
 
-	const { uid } = useContext(AuthContext);
+	const { uid } = useSelector((state: State) => state.user);
 
 	const { theme } = useTheme();
 	const {

@@ -1,42 +1,31 @@
 import { onAuthStateChanged } from 'firebase/auth';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../config/firebase';
-import { AuthContext } from '../../context/auth.context';
-import User from '../../interfaces/user.interface';
+import State from '../../interfaces/state.interface';
+import { checkAuthSuccessAction } from '../../redux/actions/userActions';
 import AuthRouteProps from './props';
 
 const AuthRoute = ({ children }: AuthRouteProps) => {
-	const [isLoading, setIsLoading] = useState(false);
-	const [user, setUser] = useState<User>({ uid: '', email: '' });
+	const dispatch = useDispatch();
+	const { uid } = useSelector((state: State) => state.user);
 
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		const authCheck = onAuthStateChanged(auth, (user) => {
 			if (user) {
-				setIsLoading(false);
-				setUser({
-					uid: user.uid,
-					email: user?.email,
-				});
+				dispatch(checkAuthSuccessAction({ uid: user.uid, email: user?.email }));
 			} else {
-				console.log('Unauthorized');
-				setUser({
-					uid: '',
-					email: '',
-				});
-
 				navigate('/signin');
 			}
 		});
 
 		authCheck();
-	}, [navigate]);
+	}, [dispatch, navigate, uid]);
 
-	if (isLoading) return <p>Loading...</p>;
-
-	return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
+	return <>{children}</>;
 };
 
 export default AuthRoute;

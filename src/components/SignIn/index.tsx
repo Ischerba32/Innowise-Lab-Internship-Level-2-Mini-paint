@@ -7,7 +7,7 @@ import { auth } from '../../config/firebase';
 import { useTheme } from '../../hooks/useTheme';
 import AuthFormParams from '../../interfaces/authForm.interface';
 import State from '../../interfaces/state.interface';
-import { signIn } from '../../redux/actions/userActions';
+import { signInAction } from '../../redux/actions/userActions';
 import AuthForm from '../AuthForm';
 
 const SignIn = () => {
@@ -30,7 +30,7 @@ const SignIn = () => {
 	}, [error]);
 
 	const handleSignIn = async ({ email, password }: AuthFormParams) => {
-		dispatch(signIn({ email, password }));
+		dispatch(signInAction({ email, password }));
 	};
 
 	return (
@@ -44,7 +44,7 @@ const SignIn = () => {
 			/>
 			<ToastContainer
 				position='top-right'
-				autoClose={5000}
+				autoClose={3000}
 				hideProgressBar={false}
 				newestOnTop={false}
 				closeOnClick

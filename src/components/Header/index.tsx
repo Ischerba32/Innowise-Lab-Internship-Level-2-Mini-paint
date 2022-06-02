@@ -2,13 +2,13 @@ import { HeaderProps } from './props';
 import styles from './styles.module.scss';
 import cn from 'classnames';
 import { Link, useNavigate } from 'react-router-dom';
-import { signOut } from 'firebase/auth';
-import { auth } from '../../config/firebase';
 import { Button, Htag } from '../UI';
 import CustomSelect from '../Select';
 import { useState } from 'react';
 import { SingleValue } from 'react-select';
 import { OptionParams } from '../Select/props';
+import { useDispatch } from 'react-redux';
+import { signOutAction } from '../../redux/actions/userActions';
 
 // Mocked users for select
 const OPTIONS = [
@@ -19,11 +19,10 @@ const OPTIONS = [
 
 export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
 	const [activeUser, setActiveUser] = useState('all');
-	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const handleClickButton = () => {
-		signOut(auth);
-		navigate('/signin');
+		dispatch(signOutAction());
 	};
 
 	const handleChangeSelect = (newValue: SingleValue<string | OptionParams>) => {
