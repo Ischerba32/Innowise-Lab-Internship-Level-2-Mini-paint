@@ -5,9 +5,17 @@ import {
 	signInWithEmailAndPassword,
 	signOut,
 } from 'firebase/auth';
-import { getDatabase, onValue, ref } from 'firebase/database';
-import { getStorage } from 'firebase/storage';
+import { getDatabase, onValue, ref, set } from 'firebase/database';
+import {
+	getDownloadURL,
+	getStorage,
+	StorageReference,
+	uploadBytes,
+	ref as refStorage,
+} from 'firebase/storage';
+import moment from 'moment';
 import AuthFormParams from '../interfaces/authForm.interface';
+import { SaveImageParams } from '../interfaces/image.interface';
 
 const firebaseConfig = {
 	apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -24,15 +32,6 @@ export const auth = getAuth(app);
 export const database = getDatabase(app);
 export const storage = getStorage(app);
 
-export const fetchData = async (uid: string) => {
-	uid &&
-		(await onValue(ref(database, `images`), (snapshot) => {
-			if (snapshot.val()) {
-				return Object.values(snapshot.val());
-			} else return [];
-		}));
-};
-
 export const handleSignIn = async ({ email, password }: AuthFormParams) => {
 	return await signInWithEmailAndPassword(auth, email, password);
 };
@@ -43,4 +42,33 @@ export const handleSignUp = async ({ email, password }: AuthFormParams) => {
 
 export const handleSignOut = async () => {
 	return await signOut(auth);
+};
+
+const saveImageToDB = async (url: string, imageId: string, uid: string) => {
+	const newImageRef = ref(database, `images/${imageId}`);
+	await set(newImageRef, {
+		imageId,
+		userId: uid,
+		image: url,
+		date: moment().format('YYYY-MM-DD'),
+	});
+};
+
+export const handleSaveImage = async ({
+	blob,
+	imageId,
+	uid,
+}: SaveImageParams) => {
+	try {
+		const storageRef = refStorage(storage, `images/${imageId}.webp`);
+		const snapshot = await uploadBytes(storageRef, blob);
+		if (snapshot) {
+			const url = await getDownloadURL(snapshot.ref);
+			await saveImageToDB(url, imageId, uid);
+			// toast.success('Image saved successfully');
+			// navigate('/');
+		}
+	} catch (error) {
+		// toast.error((error as Error).message);
+	}
 };

@@ -1,4 +1,4 @@
-import { ActionTypes } from '../redux/actionTypes';
+import { ActionTypes } from '../redux/actions/actionTypes';
 import AuthFormParams from './authForm.interface';
 
 export default interface User {
@@ -17,11 +17,6 @@ interface SignInSuccessAction {
 	payload: User;
 }
 
-interface SignInErrorAction {
-	type: ActionTypes.SIGN_IN_ERROR;
-	payload: Error;
-}
-
 interface SignUpAction {
 	type: ActionTypes.SIGN_UP;
 	payload: AuthFormParams;
@@ -32,11 +27,6 @@ interface SignUpSuccessAction {
 	payload: User;
 }
 
-interface SignUpErrorAction {
-	type: ActionTypes.SIGN_UP_ERROR;
-	payload: Error;
-}
-
 interface SignOutAction {
 	type: ActionTypes.SIGN_OUT;
 }
@@ -45,9 +35,13 @@ interface SignOutSuccessAction {
 	type: ActionTypes.SIGN_OUT_SUCCESS;
 }
 
-interface SignOutErrorAction {
-	type: ActionTypes.SIGN_OUT_ERROR;
+interface AuthError {
+	type: ActionTypes.AUTH_ERROR;
 	payload: Error;
+}
+
+interface ClearError {
+	type: ActionTypes.CLEAR_ERROR;
 }
 
 interface CheckAuthAction {
@@ -61,12 +55,11 @@ interface CheckAuthSuccessAction {
 export type UserAction =
 	| SignInAction
 	| SignInSuccessAction
-	| SignInErrorAction
 	| SignUpAction
 	| SignUpSuccessAction
-	| SignUpErrorAction
 	| SignOutAction
 	| SignOutSuccessAction
-	| SignOutErrorAction
+	| AuthError
+	| ClearError
 	| CheckAuthAction
 	| CheckAuthSuccessAction;

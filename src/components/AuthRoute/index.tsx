@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../config/firebase';
 import State from '../../interfaces/state.interface';
-import { checkAuthSuccessAction } from '../../redux/actions/userActions';
+import { checkAuthSuccessAction } from '../../redux/actions/actionCreators/userActions';
 import AuthRouteProps from './props';
 
 const AuthRoute = ({ children }: AuthRouteProps) => {

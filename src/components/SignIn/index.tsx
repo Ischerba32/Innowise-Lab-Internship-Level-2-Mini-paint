@@ -7,7 +7,10 @@ import { auth } from '../../config/firebase';
 import { useTheme } from '../../hooks/useTheme';
 import AuthFormParams from '../../interfaces/authForm.interface';
 import State from '../../interfaces/state.interface';
-import { signInAction } from '../../redux/actions/userActions';
+import {
+	clearErrorAction,
+	signInAction,
+} from '../../redux/actions/actionCreators/userActions';
 import AuthForm from '../AuthForm';
 
 const SignIn = () => {
@@ -18,7 +21,7 @@ const SignIn = () => {
 
 	useEffect(() => {
 		const authCheck = onAuthStateChanged(auth, (user) => {
-			if (user?.uid === uid) navigate('/');
+			if (user) navigate('/');
 		});
 		authCheck();
 	}, [navigate, uid]);
@@ -26,8 +29,9 @@ const SignIn = () => {
 	useEffect(() => {
 		if (error) {
 			toast.error(error);
+			dispatch(clearErrorAction());
 		}
-	}, [error]);
+	}, [error, dispatch]);
 
 	const handleSignIn = async ({ email, password }: AuthFormParams) => {
 		dispatch(signInAction({ email, password }));

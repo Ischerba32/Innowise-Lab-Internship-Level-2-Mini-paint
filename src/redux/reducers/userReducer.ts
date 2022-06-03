@@ -1,5 +1,5 @@
 import User, { UserAction } from '../../interfaces/user.interface';
-import { ActionTypes } from '../actionTypes';
+import { ActionTypes } from '../actions/actionTypes';
 
 const initialState: User = {
 	uid: '',
@@ -18,8 +18,6 @@ export const userReducer = (state = initialState, action: UserAction): User => {
 				email: action.payload.email,
 				error: '',
 			};
-		case ActionTypes.SIGN_IN_ERROR:
-			return { ...state, error: action.payload.message };
 
 		case ActionTypes.SIGN_UP:
 			return { ...state };
@@ -30,15 +28,16 @@ export const userReducer = (state = initialState, action: UserAction): User => {
 				email: action.payload.email,
 				error: '',
 			};
-		case ActionTypes.SIGN_UP_ERROR:
-			return { ...state, error: action.payload.message };
 
 		case ActionTypes.SIGN_OUT:
 			return { ...state };
 		case ActionTypes.SIGN_OUT_SUCCESS:
 			return { ...state, uid: '', email: '' };
-		case ActionTypes.SIGN_OUT_ERROR:
+
+		case ActionTypes.AUTH_ERROR:
 			return { ...state, error: action.payload.message };
+		case ActionTypes.CLEAR_ERROR:
+			return { ...state, error: '' };
 
 		case ActionTypes.CHECK_AUTH:
 			return { ...state };

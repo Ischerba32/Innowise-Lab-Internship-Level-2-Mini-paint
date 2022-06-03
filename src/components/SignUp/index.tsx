@@ -1,7 +1,4 @@
-import {
-	createUserWithEmailAndPassword,
-	onAuthStateChanged,
-} from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +7,7 @@ import { auth } from '../../config/firebase';
 import { useTheme } from '../../hooks/useTheme';
 import AuthFormParams from '../../interfaces/authForm.interface';
 import State from '../../interfaces/state.interface';
-import { signUpAction } from '../../redux/actions/userActions';
+import { signUpAction } from '../../redux/actions/actionCreators/userActions';
 import AuthForm from '../AuthForm';
 
 const SignUp = () => {

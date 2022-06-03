@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { SingleValue } from 'react-select';
 import { OptionParams } from '../Select/props';
 import { useDispatch } from 'react-redux';
-import { signOutAction } from '../../redux/actions/userActions';
+import { signOutAction } from '../../redux/actions/actionCreators/userActions';
 
 // Mocked users for select
 const OPTIONS = [

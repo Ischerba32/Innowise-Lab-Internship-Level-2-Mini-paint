@@ -1,27 +1,24 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import CanvasMenu from '../CanvasMenu';
-import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { toast, ToastContainer } from 'react-toastify';
-import { ref as refDB, set } from 'firebase/database';
-import { database } from '../../config/firebase';
-import moment from 'moment';
 import styles from './styles.module.scss';
 import { useDraw } from '../../hooks/useDraw';
 import { useTheme } from '../../hooks/useTheme';
-import { Tools } from '../../interfaces/hooks/useDraw.interface';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import State from '../../interfaces/state.interface';
+import { useNavigate } from 'react-router-dom';
+import { saveImageAction } from '../../redux/actions/actionCreators/imagesActions';
 
 const Canvas = () => {
-	const [tool, setTool] = useState(Tools.PEN);
-	const [lineColor, setLineColor] = useState('black');
-	const [lineWidth, setLineWidth] = useState(10);
-	const [lineOpacity, setLineOpacity] = useState(0.5);
-
 	const imageId = uuidv4();
 
 	const { uid } = useSelector((state: State) => state.user);
+	const { tool, lineColor, lineWidth, lineOpacity } = useSelector(
+		(state: State) => state.canvas
+	);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const { theme } = useTheme();
 	const {
@@ -37,32 +34,13 @@ const Canvas = () => {
 	} = useDraw({ tool, lineColor, lineWidth, lineOpacity });
 
 	const saveImage = async () => {
-		const storage = getStorage();
-		const storageRef = ref(storage, `images/${imageId}.webp`);
-
-		subCanvasRef.current?.toBlob((blob: Blob | null) => {
-			blob &&
-				uploadBytes(storageRef, blob)
-					.then((snapshot) => {
-						getDownloadURL(snapshot.ref).then((url) => {
-							saveImageToDB(url);
-						});
-						toast.success('Image saved successfully');
-					})
-					.catch((error) => {
-						toast.error((error as Error).message);
-					});
+		subCanvasRef.current?.toBlob(async (blob: Blob | null) => {
+			if (blob) {
+				dispatch(saveImageAction({ blob, imageId, uid }));
+				toast.success('Image saved successfully');
+				// navigate('/');
+			}
 		}, 'image/webp');
-	};
-
-	const saveImageToDB = async (url: string) => {
-		const newImageRef = refDB(database, `images/${imageId}`);
-		await set(newImageRef, {
-			imageId,
-			userId: uid,
-			image: url,
-			date: moment().format('YYYY-MM-DD'),
-		});
 	};
 
 	return (
@@ -70,10 +48,6 @@ const Canvas = () => {
 			<CanvasMenu
 				lineWidth={lineWidth}
 				lineOpacity={lineOpacity}
-				setTool={setTool}
-				setLineColor={setLineColor}
-				setLineWidth={setLineWidth}
-				setLineOpacity={setLineOpacity}
 				handleSaveButton={saveImage}
 				handleClearButton={clearCanvas}
 			/>

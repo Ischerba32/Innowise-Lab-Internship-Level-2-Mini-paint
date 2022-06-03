@@ -1,44 +1,52 @@
+import { useDispatch } from 'react-redux';
 import { SingleValue } from 'react-select';
 import { Tools } from '../../interfaces/hooks/useDraw.interface';
+import {
+	setLineColorAction,
+	setLineOpacityAction,
+	setLineWidthAction,
+	setToolAction,
+} from '../../redux/actions/actionCreators/canvasActions';
 import CustomSelect from '../Select';
 import { OptionParams } from '../Select/props';
 import { Button } from '../UI';
 import CanvasMenuProps from './props';
 import styles from './styles.module.scss';
 
-// Mocked tools for select
-const OPTIONS = [
-	{ value: Tools.PEN, label: 'Pen' },
-	{ value: Tools.CIRCLE, label: 'Circle' },
-	{ value: Tools.RECTANGLE, label: 'Rectangle' },
-	{ value: Tools.LINE, label: 'Line' },
-];
-
 const CanvasMenu = ({
 	lineWidth,
 	lineOpacity,
-	setTool,
-	setLineColor,
-	setLineWidth,
-	setLineOpacity,
 	handleSaveButton,
 	handleClearButton,
 }: CanvasMenuProps) => {
+	const dispatch = useDispatch();
+
+	const getSelectOptions = (tools: object) => {
+		const result: OptionParams[] = [];
+		Object.keys(tools).forEach((tool) => {
+			result.push({ value: tool, label: tool });
+		});
+		return result;
+	};
+
+	const selectOptions = getSelectOptions(Tools);
+	console.log(selectOptions);
+
 	const handleChangeSelect = (newValue: SingleValue<string | OptionParams>) => {
-		setTool((newValue as OptionParams).value as Tools);
+		dispatch(setToolAction((newValue as OptionParams).value as Tools));
 	};
 
 	return (
 		<div className={styles.menu}>
 			<div className={styles.menu__tools}>
-				<CustomSelect options={OPTIONS} onChange={handleChangeSelect} />
+				<CustomSelect options={selectOptions} onChange={handleChangeSelect} />
 			</div>
 			<div className={styles.menu__color}>
 				<label>Color</label>
 				<input
 					type='color'
 					onChange={(e) => {
-						setLineColor(e.target.value);
+						dispatch(setLineColorAction(e.target.value));
 					}}
 				/>
 			</div>
@@ -50,7 +58,7 @@ const CanvasMenu = ({
 					max='100'
 					value={lineWidth}
 					onChange={(e) => {
-						setLineWidth(+e.target.value);
+						dispatch(setLineWidthAction(+e.target.value));
 					}}
 				/>
 			</div>
@@ -62,7 +70,7 @@ const CanvasMenu = ({
 					max='100'
 					value={lineOpacity * 100}
 					onChange={(e) => {
-						setLineOpacity(+e.target.value / 100);
+						dispatch(setLineOpacityAction(+e.target.value / 100));
 					}}
 				/>
 			</div>

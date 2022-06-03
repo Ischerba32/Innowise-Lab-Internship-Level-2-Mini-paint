@@ -6,14 +6,12 @@ import {
 	handleSignUp,
 } from '../../../config/firebase';
 import {
-	signInErrorAction,
+	authErrorAction,
 	signInSuccessAction,
-	signOutErrorAction,
 	signOutSuccessAction,
-	signUpErrorAction,
 	signUpSuccessAction,
-} from '../../actions/userActions';
-import { ActionTypes } from '../../actionTypes';
+} from '../../actions/actionCreators/userActions';
+import { ActionTypes } from '../../actions/actionTypes';
 
 export function* signInWorker(data: AnyAction) {
 	const { payload } = data;
@@ -24,7 +22,7 @@ export function* signInWorker(data: AnyAction) {
 			yield put(signInSuccessAction({ uid: user.uid, email: user?.email }));
 		}
 	} catch (error) {
-		yield put(signInErrorAction(error as Error));
+		yield put(authErrorAction(error as Error));
 	}
 }
 
@@ -37,7 +35,7 @@ export function* signUpWorker(data: AnyAction) {
 			yield put(signUpSuccessAction({ uid: user.uid, email: user?.email }));
 		}
 	} catch (error) {
-		yield put(signUpErrorAction(error as Error));
+		yield put(authErrorAction(error as Error));
 	}
 }
 
@@ -46,7 +44,7 @@ export function* signOutWorker() {
 		yield handleSignOut();
 		yield put(signOutSuccessAction());
 	} catch (error) {
-		put(signOutErrorAction(error as Error));
+		put(authErrorAction(error as Error));
 	}
 }
 
