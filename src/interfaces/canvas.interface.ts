@@ -28,8 +28,13 @@ interface SetLineOpacityAction {
 	payload: number;
 }
 
+interface ResetCanvasAction {
+	type: ActionTypes.RESET_CANVAS;
+}
+
 export type CanvasAction =
 	| SetToolAction
 	| SetLineColorAction
 	| SetLineWidthAction
-	| SetLineOpacityAction;
+	| SetLineOpacityAction
+	| ResetCanvasAction;

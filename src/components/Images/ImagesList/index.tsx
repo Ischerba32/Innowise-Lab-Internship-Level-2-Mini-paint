@@ -1,5 +1,5 @@
 import { onValue, ref } from 'firebase/database';
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { database } from '../../../config/firebase';
@@ -10,6 +10,7 @@ import {
 	getImagesSuccessAction,
 	setImagesAction,
 } from '../../../redux/actions/actionCreators/imagesActions';
+import { selectImagesByFilter } from '../../../redux/selectors';
 import { Button, Loader } from '../../UI';
 import ImageItem from '../ImageItem';
 import styles from './styles.module.scss';
@@ -20,7 +21,8 @@ const ImagesList = () => {
 	const dispatch = useDispatch();
 
 	const { uid } = useSelector((state: State) => state.user);
-	const { isLoading, images } = useSelector((state: State) => state.images);
+	const { isLoading } = useSelector((state: State) => state.images);
+	const images = useSelector(selectImagesByFilter);
 
 	const navigate = useNavigate();
 
@@ -45,13 +47,13 @@ const ImagesList = () => {
 		// dispatch(getImagesAction());
 	}, [uid, dispatch]);
 
-	if (isLoading) {
-		return <Loader speed={2} />;
-	}
+	// if (isLoading) {
+	// 	return <Loader speed={2} />;
+	// }
 
 	return (
 		<>
-			{/* {isLoading && <Loader speed={2} />} */}
+			{isLoading && <Loader speed={2} />}
 			<div className={styles.images__container}>
 				{images &&
 					images.map((image: Image) => (

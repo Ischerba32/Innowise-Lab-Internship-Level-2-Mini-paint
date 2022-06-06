@@ -17,3 +17,7 @@ export const setLineOpacityAction = (payload: number): CanvasAction => {
 export const setToolAction = (payload: Tools): CanvasAction => {
 	return { type: ActionTypes.SET_TOOL, payload };
 };
+
+export const resetCanvasAction = (): CanvasAction => {
+	return { type: ActionTypes.RESET_CANVAS };
+};

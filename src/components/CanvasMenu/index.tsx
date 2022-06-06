@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { SingleValue } from 'react-select';
+import { getToolsSelectOptions } from '../../helpers/selectOptions';
 import { Tools } from '../../interfaces/hooks/useDraw.interface';
 import {
 	setLineColorAction,
@@ -21,16 +22,7 @@ const CanvasMenu = ({
 }: CanvasMenuProps) => {
 	const dispatch = useDispatch();
 
-	const getSelectOptions = (tools: object) => {
-		const result: OptionParams[] = [];
-		Object.keys(tools).forEach((tool) => {
-			result.push({ value: tool, label: tool });
-		});
-		return result;
-	};
-
-	const selectOptions = getSelectOptions(Tools);
-	console.log(selectOptions);
+	const selectOptions = getToolsSelectOptions(Tools);
 
 	const handleChangeSelect = (newValue: SingleValue<string | OptionParams>) => {
 		dispatch(setToolAction((newValue as OptionParams).value as Tools));

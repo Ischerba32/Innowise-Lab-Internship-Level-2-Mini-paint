@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import CanvasMenu from '../CanvasMenu';
 import { v4 as uuidv4 } from 'uuid';
 import { toast, ToastContainer } from 'react-toastify';
@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import State from '../../interfaces/state.interface';
 import { useNavigate } from 'react-router-dom';
 import { saveImageAction } from '../../redux/actions/actionCreators/imagesActions';
+import { resetCanvasAction } from '../../redux/actions/actionCreators/canvasActions';
 
 const Canvas = () => {
 	const imageId = uuidv4();
@@ -32,6 +33,13 @@ const Canvas = () => {
 		handleMouseMove,
 		handleMouseUp,
 	} = useDraw({ tool, lineColor, lineWidth, lineOpacity });
+
+	useEffect(() => {
+		const handleResetCanvas = () => {
+			dispatch(resetCanvasAction());
+		};
+		return () => handleResetCanvas();
+	}, [dispatch]);
 
 	const saveImage = async () => {
 		subCanvasRef.current?.toBlob(async (blob: Blob | null) => {

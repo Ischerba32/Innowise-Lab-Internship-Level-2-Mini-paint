@@ -54,6 +54,14 @@ const saveImageToDB = async (url: string, imageId: string, uid: string) => {
 	});
 };
 
+export const saveUserToDB = async (uid: string, email: string) => {
+	const newUserRef = ref(database, `users/${uid}`);
+	await set(newUserRef, {
+		uid,
+		email,
+	});
+};
+
 export const handleSaveImage = async ({
 	blob,
 	imageId,

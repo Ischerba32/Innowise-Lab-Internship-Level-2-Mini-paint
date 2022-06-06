@@ -1,9 +1,10 @@
 import { AnyAction } from 'redux';
-import { all, put, takeEvery } from 'redux-saga/effects';
+import { all, call, put, takeEvery } from 'redux-saga/effects';
 import {
 	handleSignIn,
 	handleSignOut,
 	handleSignUp,
+	saveUserToDB,
 } from '../../../config/firebase';
 import {
 	authErrorAction,
@@ -32,6 +33,7 @@ export function* signUpWorker(data: AnyAction) {
 	try {
 		const { user } = yield handleSignUp(payload);
 		if (user.uid && user?.email) {
+			yield saveUserToDB(user.uid, user.email);
 			yield put(signUpSuccessAction({ uid: user.uid, email: user?.email }));
 		}
 	} catch (error) {
