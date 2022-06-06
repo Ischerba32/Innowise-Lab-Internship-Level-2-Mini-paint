@@ -1,6 +1,5 @@
-import { Dispatch, SetStateAction } from 'react';
-
-export default interface IUseTheme {
+import { SetThemeAction } from '../../interfaces/theme.interface';
+export default interface UseThemeResult {
 	theme: string;
-	setTheme: Dispatch<SetStateAction<string>>;
+	dispatchTheme: (theme: string) => SetThemeAction;
 }

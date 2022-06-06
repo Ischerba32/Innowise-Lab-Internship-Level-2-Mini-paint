@@ -21,7 +21,7 @@ const SignUp = () => {
 			if (user) navigate('/');
 		});
 		authCheck();
-	}, [navigate]);
+	}, [navigate, uid]);
 
 	useEffect(() => {
 		if (error) {

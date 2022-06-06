@@ -28,4 +28,6 @@ export enum ActionTypes {
 	RESET_CANVAS = 'RESET_CANVAS',
 
 	IMAGES_FILTER = 'IMAGES_FILTER',
+
+	SET_THEME = 'SET_THEME',
 }

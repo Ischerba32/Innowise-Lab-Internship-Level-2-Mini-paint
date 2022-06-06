@@ -1,5 +1,3 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import { Card } from '../../UI';
 import ImageItemProps from './props';
 import styles from './styles.module.scss';

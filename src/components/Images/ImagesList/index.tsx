@@ -16,26 +16,21 @@ import ImageItem from '../ImageItem';
 import styles from './styles.module.scss';
 
 const ImagesList = () => {
-	// const [loading, setLoading] = useState(false);
-	// const [images, setImages] = useState<Image[] | null>([]);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const { uid } = useSelector((state: State) => state.user);
 	const { isLoading } = useSelector((state: State) => state.images);
 	const images = useSelector(selectImagesByFilter);
 
-	const navigate = useNavigate();
-
 	useEffect(() => {
 		const fetchData = async () => {
-			// setLoading(true);
 			dispatch(getImagesAction());
 			console.log('fetching images');
 			if (uid) {
 				await onValue(ref(database, `images`), (snapshot) => {
 					if (snapshot.val()) {
 						console.log('fetched images');
-						// setImages(Object.values(snapshot.val()));
 						dispatch(setImagesAction(Object.values(snapshot.val())));
 					}
 					// setLoading(false);
@@ -44,7 +39,6 @@ const ImagesList = () => {
 			}
 		};
 		fetchData();
-		// dispatch(getImagesAction());
 	}, [uid, dispatch]);
 
 	// if (isLoading) {

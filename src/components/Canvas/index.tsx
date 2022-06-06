@@ -7,7 +7,7 @@ import { useDraw } from '../../hooks/useDraw';
 import { useTheme } from '../../hooks/useTheme';
 import { useDispatch, useSelector } from 'react-redux';
 import State from '../../interfaces/state.interface';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { saveImageAction } from '../../redux/actions/actionCreators/imagesActions';
 import { resetCanvasAction } from '../../redux/actions/actionCreators/canvasActions';
 
@@ -19,7 +19,7 @@ const Canvas = () => {
 		(state: State) => state.canvas
 	);
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	const { theme } = useTheme();
 	const {

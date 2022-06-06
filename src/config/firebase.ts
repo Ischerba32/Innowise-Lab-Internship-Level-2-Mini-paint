@@ -5,11 +5,10 @@ import {
 	signInWithEmailAndPassword,
 	signOut,
 } from 'firebase/auth';
-import { getDatabase, onValue, ref, set } from 'firebase/database';
+import { getDatabase, ref, set } from 'firebase/database';
 import {
 	getDownloadURL,
 	getStorage,
-	StorageReference,
 	uploadBytes,
 	ref as refStorage,
 } from 'firebase/storage';
@@ -73,8 +72,6 @@ export const handleSaveImage = async ({
 		if (snapshot) {
 			const url = await getDownloadURL(snapshot.ref);
 			await saveImageToDB(url, imageId, uid);
-			// toast.success('Image saved successfully');
-			// navigate('/');
 		}
 	} catch (error) {
 		// toast.error((error as Error).message);
