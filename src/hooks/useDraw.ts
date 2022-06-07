@@ -1,15 +1,19 @@
-import {
-	useRef,
-	useState,
-	useEffect,
-	MouseEvent,
-	MutableRefObject,
-} from 'react';
+import { useRef, useEffect, MouseEvent, MutableRefObject } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	UseDrawParams,
 	UseDrawReturnParams,
 	Tools,
 } from '../interfaces/hooks/useDraw.interface';
+import State from '../interfaces/state.interface';
+import {
+	setCanvasHeight,
+	setCanvasWidth,
+	setContext,
+	setMouseDownX,
+	setMouseDownY,
+	setSubContext,
+} from '../redux/slices/canvasSlice';
 
 export const useDraw = ({
 	tool,
@@ -21,14 +25,15 @@ export const useDraw = ({
 	const subCanvasRef = useRef<HTMLCanvasElement | null>(null);
 	const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-	const [canvasWidth, setCanvasWidth] = useState(0);
-	const [canvasHeight, setCanvasHeight] = useState(0);
-	const [mouseDownX, setMouseDownX] = useState(0);
-	const [mouseDownY, setMouseDownY] = useState(0);
-	const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
-	const [subContext, setSubContext] = useState<CanvasRenderingContext2D | null>(
-		null
-	);
+	const {
+		canvasWidth,
+		canvasHeight,
+		mouseDownX,
+		mouseDownY,
+		context,
+		subContext,
+	} = useSelector((state: State) => state.canvas);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (
@@ -36,12 +41,12 @@ export const useDraw = ({
 			subCanvasRef.current &&
 			wrapperRef.current?.clientWidth
 		) {
-			setCanvasWidth(wrapperRef.current.offsetWidth);
-			setCanvasHeight(wrapperRef.current.offsetHeight);
-			setContext(canvasRef.current.getContext('2d'));
-			setSubContext(subCanvasRef.current.getContext('2d'));
+			dispatch(setCanvasWidth(wrapperRef.current.offsetWidth));
+			dispatch(setCanvasHeight(wrapperRef.current.offsetHeight));
+			dispatch(setContext(canvasRef.current.getContext('2d')));
+			dispatch(setSubContext(subCanvasRef.current.getContext('2d')));
 		}
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
 		if (
@@ -49,10 +54,10 @@ export const useDraw = ({
 			subCanvasRef.current &&
 			wrapperRef.current?.clientWidth
 		) {
-			canvasRef.current.width = subCanvasRef.current.width;
-			canvasRef.current.height = subCanvasRef.current.height;
 			subCanvasRef.current.width = canvasWidth;
 			subCanvasRef.current.height = canvasHeight;
+			canvasRef.current.width = subCanvasRef.current.width;
+			canvasRef.current.height = subCanvasRef.current.height;
 		}
 	}, [canvasWidth, canvasHeight]);
 
@@ -75,8 +80,8 @@ export const useDraw = ({
 
 	const handleMouseDown = (event: MouseEvent<HTMLCanvasElement>) => {
 		const target = event.target as HTMLCanvasElement;
-		setMouseDownX(event.nativeEvent.offsetX - target.offsetLeft);
-		setMouseDownY(event.nativeEvent.offsetY - target.offsetTop);
+		dispatch(setMouseDownX(event.nativeEvent.offsetX - target.offsetLeft));
+		dispatch(setMouseDownY(event.nativeEvent.offsetY - target.offsetTop));
 	};
 
 	const handleMouseMove = (event: MouseEvent<HTMLCanvasElement>) => {
@@ -87,9 +92,9 @@ export const useDraw = ({
 			wrapperRef.current &&
 			canvasRef.current
 		) {
+			context.lineCap = 'round';
 			context.strokeStyle = lineColor;
 			context.lineWidth = lineWidth;
-			context.lineCap = 'round';
 			context.shadowColor = lineColor;
 			context.globalAlpha = lineOpacity;
 
@@ -143,8 +148,8 @@ export const useDraw = ({
 		if (context && subContext && canvasRef.current) {
 			subContext.drawImage(canvasRef.current, 0, 0);
 			context.beginPath();
-			setMouseDownX(0);
-			setMouseDownY(0);
+			dispatch(setMouseDownX(0));
+			dispatch(setMouseDownY(0));
 		}
 	};
 

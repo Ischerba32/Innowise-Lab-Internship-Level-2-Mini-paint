@@ -1,4 +1,4 @@
-import { ImageState } from '../redux/reducers/imagesReducer';
+import { ImageState } from './image.interface';
 import User from './user.interface';
 import CanvasState from './canvas.interface';
 import FilterState from './filter.interface';

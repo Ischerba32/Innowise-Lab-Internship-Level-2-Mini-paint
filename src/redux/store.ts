@@ -1,27 +1,24 @@
-import { applyMiddleware, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { rootReducer } from './reducers';
 import rootSaga from './sagas';
-// import { configureStore } from '@reduxjs/toolkit';
-
-declare global {
-	interface Window {
-		__REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-	}
-}
+import { configureStore } from '@reduxjs/toolkit';
+import userReducer from './slices/userSlice';
+import imagesReducer from './slices/imagesSlice';
+import filterReducer from './slices/filterSlice';
+import canvasReducer from './slices/canvasSlice';
+import themeReducer from './slices/themeSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const configureStore = (preloadedState: any) =>
-	createStore(
-		rootReducer,
-		preloadedState,
-		composeEnhancers(applyMiddleware(sagaMiddleware))
-	);
-
-const store = configureStore({});
+const store = configureStore({
+	reducer: {
+		user: userReducer,
+		images: imagesReducer,
+		filter: filterReducer,
+		canvas: canvasReducer,
+		theme: themeReducer,
+	},
+	middleware: [sagaMiddleware],
+});
 
 sagaMiddleware.run(rootSaga);
 

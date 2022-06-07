@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { database } from '../../../config/firebase';
 import Image from '../../../interfaces/image.interface';
 import State from '../../../interfaces/state.interface';
-import {
-	getImagesAction,
-	getImagesSuccessAction,
-	setImagesAction,
-} from '../../../redux/actions/actionCreators/imagesActions';
 import { selectImagesByFilter } from '../../../redux/selectors';
+import {
+	getImages,
+	getImagesSuccess,
+	setImages,
+} from '../../../redux/slices/imagesSlice';
 import { Button, Loader } from '../../UI';
 import ImageItem from '../ImageItem';
 import styles from './styles.module.scss';
@@ -25,15 +25,15 @@ const ImagesList = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			dispatch(getImagesAction());
+			dispatch(getImages());
 			console.log('fetching images');
 			if (uid) {
 				await onValue(ref(database, `images`), (snapshot) => {
 					if (snapshot.val()) {
 						console.log('fetched images');
-						dispatch(setImagesAction(Object.values(snapshot.val())));
+						dispatch(setImages(Object.values(snapshot.val())));
 					}
-					dispatch(getImagesSuccessAction());
+					dispatch(getImagesSuccess());
 				});
 			}
 		};

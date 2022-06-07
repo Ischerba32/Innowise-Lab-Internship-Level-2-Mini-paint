@@ -2,16 +2,16 @@ import { useDispatch } from 'react-redux';
 import { SingleValue } from 'react-select';
 import { getToolsSelectOptions } from '../../helpers/selectOptions';
 import { Tools } from '../../interfaces/hooks/useDraw.interface';
-import {
-	setLineColorAction,
-	setLineOpacityAction,
-	setLineWidthAction,
-	setToolAction,
-} from '../../redux/actions/actionCreators/canvasActions';
 import { OptionParams } from '../UI/CustomSelect/props';
 import { Button, CustomSelect } from '../UI';
 import CanvasMenuProps from './props';
 import styles from './styles.module.scss';
+import {
+	setLineColor,
+	setLineOpacity,
+	setLineWidth,
+	setTool,
+} from '../../redux/slices/canvasSlice';
 
 const CanvasMenu = ({
 	lineWidth,
@@ -24,7 +24,7 @@ const CanvasMenu = ({
 	const selectOptions = getToolsSelectOptions(Tools);
 
 	const handleChangeSelect = (newValue: SingleValue<string | OptionParams>) => {
-		dispatch(setToolAction((newValue as OptionParams).value as Tools));
+		dispatch(setTool((newValue as OptionParams).value as Tools));
 	};
 
 	return (
@@ -37,7 +37,7 @@ const CanvasMenu = ({
 				<input
 					type='color'
 					onChange={(e) => {
-						dispatch(setLineColorAction(e.target.value));
+						dispatch(setLineColor(e.target.value));
 					}}
 				/>
 			</div>
@@ -49,7 +49,7 @@ const CanvasMenu = ({
 					max='100'
 					value={lineWidth}
 					onChange={(e) => {
-						dispatch(setLineWidthAction(+e.target.value));
+						dispatch(setLineWidth(+e.target.value));
 					}}
 				/>
 			</div>
@@ -61,7 +61,7 @@ const CanvasMenu = ({
 					max='100'
 					value={lineOpacity * 100}
 					onChange={(e) => {
-						dispatch(setLineOpacityAction(+e.target.value / 100));
+						dispatch(setLineOpacity(+e.target.value / 100));
 					}}
 				/>
 			</div>

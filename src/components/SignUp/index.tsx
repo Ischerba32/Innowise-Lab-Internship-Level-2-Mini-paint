@@ -7,7 +7,7 @@ import { auth } from '../../config/firebase';
 import { useTheme } from '../../hooks/useTheme';
 import AuthFormParams from '../../interfaces/authForm.interface';
 import State from '../../interfaces/state.interface';
-import { signUpAction } from '../../redux/actions/actionCreators/userActions';
+import { clearError, signUp } from '../../redux/slices/userSlice';
 import AuthForm from '../AuthForm';
 
 const SignUp = () => {
@@ -26,11 +26,12 @@ const SignUp = () => {
 	useEffect(() => {
 		if (error) {
 			toast.error(error);
+			dispatch(clearError());
 		}
-	}, [error]);
+	}, [error, dispatch]);
 
 	const handleSignUp = async ({ email, password }: AuthFormParams) => {
-		dispatch(signUpAction({ email, password }));
+		dispatch(signUp({ email, password }));
 	};
 
 	return (

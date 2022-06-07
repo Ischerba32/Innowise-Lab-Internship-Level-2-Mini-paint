@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../../config/firebase';
 import State from '../../interfaces/state.interface';
-import { checkAuthSuccessAction } from '../../redux/actions/actionCreators/userActions';
+import { checkAuthSuccess } from '../../redux/slices/userSlice';
 import AuthRouteProps from './props';
 
 const AuthRoute = ({ children }: AuthRouteProps) => {
@@ -16,7 +16,7 @@ const AuthRoute = ({ children }: AuthRouteProps) => {
 	useEffect(() => {
 		const authCheck = onAuthStateChanged(auth, (user) => {
 			if (user) {
-				dispatch(checkAuthSuccessAction({ uid: user.uid, email: user?.email }));
+				dispatch(checkAuthSuccess({ uid: user.uid, email: user?.email }));
 			} else {
 				navigate('/signin');
 			}

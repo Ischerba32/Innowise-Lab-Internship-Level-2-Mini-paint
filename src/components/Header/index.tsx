@@ -6,19 +6,19 @@ import { Button, Htag, CustomSelect, ThemeSwitch } from '../UI';
 import { SingleValue } from 'react-select';
 import { OptionParams } from '../UI/CustomSelect/props';
 import { useDispatch } from 'react-redux';
-import { signOutAction } from '../../redux/actions/actionCreators/userActions';
-import { filterImagesAction } from '../../redux/actions/actionCreators/filterActions';
 import { getUsersOptions } from '../../helpers/selectOptions';
+import { filterImages } from '../../redux/slices/filterSlice';
+import { signOut } from '../../redux/slices/userSlice';
 
 export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
 	const dispatch = useDispatch();
 
 	const handleSignOut = () => {
-		dispatch(signOutAction());
+		dispatch(signOut());
 	};
 
 	const handleChangeSelect = (newValue: SingleValue<string | OptionParams>) => {
-		dispatch(filterImagesAction((newValue as OptionParams).value));
+		dispatch(filterImages((newValue as OptionParams).value));
 	};
 
 	const selectOptions = getUsersOptions();
