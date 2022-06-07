@@ -8,9 +8,8 @@ import {
 	setLineWidthAction,
 	setToolAction,
 } from '../../redux/actions/actionCreators/canvasActions';
-import CustomSelect from '../Select';
-import { OptionParams } from '../Select/props';
-import { Button } from '../UI';
+import { OptionParams } from '../UI/CustomSelect/props';
+import { Button, CustomSelect } from '../UI';
 import CanvasMenuProps from './props';
 import styles from './styles.module.scss';
 

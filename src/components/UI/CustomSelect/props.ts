@@ -1,5 +1,5 @@
 import { SingleValue } from 'react-select';
-import { Tools } from '../../interfaces/hooks/useDraw.interface';
+import { Tools } from '../../../interfaces/hooks/useDraw.interface';
 
 export interface OptionParams {
 	value: string | Tools;

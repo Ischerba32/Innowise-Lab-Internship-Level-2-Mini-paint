@@ -5,7 +5,7 @@ const isDarkTheme = window?.matchMedia('(prefers-color-scheme: dark)').matches;
 const defaultTheme = isDarkTheme ? 'dark' : 'light';
 
 const initialState: ThemeState = {
-	theme: defaultTheme || localStorage.getItem('app-theme'),
+	theme: localStorage.getItem('app-theme') || defaultTheme,
 };
 
 export const themeReducer = (

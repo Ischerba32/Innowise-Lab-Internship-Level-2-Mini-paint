@@ -44,9 +44,9 @@ interface ClearError {
 	type: ActionTypes.CLEAR_ERROR;
 }
 
-interface CheckAuthAction {
-	type: ActionTypes.CHECK_AUTH;
-}
+// interface CheckAuthAction {
+// 	type: ActionTypes.CHECK_AUTH;
+// }
 interface CheckAuthSuccessAction {
 	type: ActionTypes.CHECK_AUTH_SUCCESS;
 	payload: User;
@@ -61,5 +61,4 @@ export type UserAction =
 	| SignOutSuccessAction
 	| AuthError
 	| ClearError
-	| CheckAuthAction
 	| CheckAuthSuccessAction;

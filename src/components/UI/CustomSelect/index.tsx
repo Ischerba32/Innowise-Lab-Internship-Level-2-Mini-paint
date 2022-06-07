@@ -2,7 +2,7 @@ import { CustomSelectProps, OptionParams } from './props';
 import Select, { SingleValue } from 'react-select';
 import { useState } from 'react';
 
-const CustomSelect = ({ options, onChange }: CustomSelectProps) => {
+export const CustomSelect = ({ options, onChange }: CustomSelectProps) => {
 	const [activeOption, setActiceOption] = useState(options[0].value);
 
 	const getValue = () => {
@@ -26,4 +26,3 @@ const CustomSelect = ({ options, onChange }: CustomSelectProps) => {
 		/>
 	);
 };
-export default CustomSelect;

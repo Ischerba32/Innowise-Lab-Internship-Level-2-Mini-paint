@@ -33,7 +33,6 @@ const ImagesList = () => {
 						console.log('fetched images');
 						dispatch(setImagesAction(Object.values(snapshot.val())));
 					}
-					// setLoading(false);
 					dispatch(getImagesSuccessAction());
 				});
 			}
@@ -46,7 +45,7 @@ const ImagesList = () => {
 	// }
 
 	return (
-		<>
+		<div className={styles.images}>
 			{isLoading && <Loader speed={2} />}
 			<div className={styles.images__container}>
 				{images &&
@@ -59,7 +58,7 @@ const ImagesList = () => {
 					+ Create
 				</Button>
 			</div>
-		</>
+		</div>
 	);
 };
 

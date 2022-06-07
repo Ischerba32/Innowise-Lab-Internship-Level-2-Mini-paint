@@ -34,10 +34,6 @@ export const signOutSuccessAction = (): UserAction => {
 	return { type: ActionTypes.SIGN_OUT_SUCCESS };
 };
 
-export const checkAuthAction = (): UserAction => {
-	return { type: ActionTypes.CHECK_AUTH };
-};
-
 export const checkAuthSuccessAction = (payload: User): UserAction => {
 	return { type: ActionTypes.CHECK_AUTH_SUCCESS, payload };
 };

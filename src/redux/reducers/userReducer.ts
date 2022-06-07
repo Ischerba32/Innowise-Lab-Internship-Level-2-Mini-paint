@@ -39,8 +39,6 @@ export const userReducer = (state = initialState, action: UserAction): User => {
 		case ActionTypes.CLEAR_ERROR:
 			return { ...state, error: '' };
 
-		case ActionTypes.CHECK_AUTH:
-			return { ...state };
 		case ActionTypes.CHECK_AUTH_SUCCESS:
 			return {
 				...state,

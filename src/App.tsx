@@ -4,11 +4,8 @@ import Canvas from './components/Canvas';
 import Home from './components/Home';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
-import { useTheme } from './hooks/useTheme';
 
 function App() {
-	const { theme } = useTheme();
-
 	return (
 		<Router>
 			<Routes>

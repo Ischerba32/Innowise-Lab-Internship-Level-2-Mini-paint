@@ -5,3 +5,5 @@ export * from './Input';
 export * from './Loader';
 export * from './Modal';
 export * from './Textarea';
+export * from './ThemeSwitch';
+export * from './CustomSelect';

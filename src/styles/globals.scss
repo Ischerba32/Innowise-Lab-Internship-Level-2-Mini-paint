@@ -36,6 +36,8 @@ a {
 	--toastify-color-progress: var(--primary);
 	--toastify-color-progress-light: var(--primary);
 	--font-family: noto sans display, sans-serif;
+	--color-toggle-light: var(--black);
+  --color-toggle-dark: var(--white);
 }
 
 :root[data-theme=light] {
