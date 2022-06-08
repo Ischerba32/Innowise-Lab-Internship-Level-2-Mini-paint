@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import AuthFormParams from '../../interfaces/authForm.interface';
-import User from '../../interfaces/user.interface';
+import UserState from '../../interfaces/user.interface';
 
 export const userSlice = createSlice({
 	name: 'user',
@@ -11,58 +11,58 @@ export const userSlice = createSlice({
 		error: '',
 	},
 	reducers: {
-		signIn: (state: User, action: PayloadAction<AuthFormParams>) => {
+		signIn: (state: UserState, action: PayloadAction<AuthFormParams>) => {
 			state.isLoading = true;
 		},
-		signInSuccess: (state: User, action: PayloadAction<User>) => {
+		signInSuccess: (state: UserState, action: PayloadAction<UserState>) => {
 			state.uid = action.payload.uid;
 			state.email = action.payload.email;
 			state.isLoading = false;
 			state.error = '';
 		},
 
-		signUp: (state: User, action: PayloadAction<AuthFormParams>) => {
+		signUp: (state: UserState, action: PayloadAction<AuthFormParams>) => {
 			state.isLoading = true;
 		},
 
-		signUpSuccess: (state: User, action: PayloadAction<User>) => {
+		signUpSuccess: (state: UserState, action: PayloadAction<UserState>) => {
 			state.uid = action.payload.uid;
 			state.email = action.payload.email;
 			state.isLoading = false;
 			state.error = '';
 		},
 
-		signOut: (state: User) => {
+		signOut: (state: UserState) => {
 			state.isLoading = true;
 		},
 
-		signOutSuccess: (state: User) => {
+		signOutSuccess: (state: UserState) => {
 			state.isLoading = false;
 			state.uid = '';
 			state.email = '';
 			state.error = '';
 		},
 
-		authError: (state: User, action: PayloadAction<Error>) => {
+		authError: (state: UserState, action: PayloadAction<Error>) => {
 			state.error = action.payload.message;
 		},
 
-		clearError: (state: User) => {
+		clearError: (state: UserState) => {
 			state.error = '';
 		},
 
-		checkAuth: (state: User) => {
+		checkAuth: (state: UserState) => {
 			state.isLoading = true;
 		},
 
-		checkAuthSuccess: (state: User, action: PayloadAction<User>) => {
+		checkAuthSuccess: (state: UserState, action: PayloadAction<UserState>) => {
 			state.uid = action.payload.uid;
 			state.email = action.payload.email;
 			state.isLoading = false;
 			state.error = '';
 		},
 
-		checkAuthFailed: (state: User) => {
+		checkAuthFailed: (state: UserState) => {
 			state.isLoading = false;
 		},
 	},

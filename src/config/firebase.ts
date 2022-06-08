@@ -43,11 +43,17 @@ export const handleSignOut = async () => {
 	return await signOut(auth);
 };
 
-const saveImageToDB = async (url: string, imageId: string, uid: string) => {
+const saveImageToDB = async (
+	url: string,
+	imageId: string,
+	uid: string,
+	email: string | null
+) => {
 	const newImageRef = ref(database, `images/${imageId}`);
 	await set(newImageRef, {
 		imageId,
 		userId: uid,
+		userEmail: email,
 		image: url,
 		date: moment().format('YYYY-MM-DD'),
 	});
@@ -65,15 +71,12 @@ export const handleSaveImage = async ({
 	blob,
 	imageId,
 	uid,
+	email,
 }: SaveImageParams) => {
-	try {
-		const storageRef = refStorage(storage, `images/${imageId}.webp`);
-		const snapshot = await uploadBytes(storageRef, blob);
-		if (snapshot) {
-			const url = await getDownloadURL(snapshot.ref);
-			await saveImageToDB(url, imageId, uid);
-		}
-	} catch (error) {
-		// toast.error((error as Error).message);
+	const storageRef = refStorage(storage, `images/${imageId}.webp`);
+	const snapshot = await uploadBytes(storageRef, blob);
+	if (snapshot) {
+		const url = await getDownloadURL(snapshot.ref);
+		await saveImageToDB(url, imageId, uid, email);
 	}
 };

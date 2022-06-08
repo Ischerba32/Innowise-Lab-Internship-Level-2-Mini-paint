@@ -30,7 +30,7 @@ export const useDraw = ({
 }: UseDrawParams): UseDrawReturnParams => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 	const subCanvasRef = useRef<HTMLCanvasElement | null>(null);
-	const wrapperRef = useRef<HTMLDivElement | null>(null);
+	const containerRef = useRef<HTMLDivElement | null>(null);
 
 	const {
 		canvasWidth,
@@ -46,10 +46,10 @@ export const useDraw = ({
 		if (
 			canvasRef.current &&
 			subCanvasRef.current &&
-			wrapperRef.current?.clientWidth
+			containerRef.current?.clientWidth
 		) {
-			dispatch(setCanvasWidth(wrapperRef.current.offsetWidth));
-			dispatch(setCanvasHeight(wrapperRef.current.offsetHeight));
+			dispatch(setCanvasWidth(containerRef.current.offsetWidth));
+			dispatch(setCanvasHeight(containerRef.current.offsetHeight));
 			dispatch(setContext(canvasRef.current.getContext('2d')));
 			dispatch(setSubContext(subCanvasRef.current.getContext('2d')));
 		}
@@ -59,7 +59,7 @@ export const useDraw = ({
 		if (
 			canvasRef.current &&
 			subCanvasRef.current &&
-			wrapperRef.current?.clientWidth
+			containerRef.current?.clientWidth
 		) {
 			subCanvasRef.current.width = canvasWidth;
 			subCanvasRef.current.height = canvasHeight;
@@ -96,7 +96,7 @@ export const useDraw = ({
 			context &&
 			mouseDownX &&
 			mouseDownY &&
-			wrapperRef.current &&
+			containerRef.current &&
 			canvasRef.current
 		) {
 			context.lineCap = 'round';
@@ -147,7 +147,7 @@ export const useDraw = ({
 	};
 
 	return {
-		wrapperRef,
+		containerRef,
 		canvasRef,
 		canvasWidth,
 		canvasHeight,

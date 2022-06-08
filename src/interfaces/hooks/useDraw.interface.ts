@@ -16,7 +16,7 @@ export interface UseDrawParams {
 }
 
 export interface UseDrawReturnParams {
-	wrapperRef: MutableRefObject<HTMLDivElement | null>;
+	containerRef: MutableRefObject<HTMLDivElement | null>;
 	canvasRef: MutableRefObject<HTMLCanvasElement | null>;
 	canvasWidth: number;
 	canvasHeight: number;

@@ -6,6 +6,7 @@ import imagesReducer from './slices/imagesSlice';
 import filterReducer from './slices/filterSlice';
 import canvasReducer from './slices/canvasSlice';
 import themeReducer from './slices/themeSlice';
+import menuReducer from './slices/menuSlice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -16,6 +17,7 @@ const store = configureStore({
 		filter: filterReducer,
 		canvas: canvasReducer,
 		theme: themeReducer,
+		burgerMenu: menuReducer,
 	},
 	middleware: [sagaMiddleware],
 });

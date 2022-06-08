@@ -9,7 +9,7 @@ const ImageItem = ({ image }: ImageItemProps) => {
 				<Card>
 					<img src={image.image} alt={image.imageId} />
 					<div className={styles.imageItem__info}>
-						<p>{image.date}</p>
+						<p>{image.userEmail}</p>
 					</div>
 				</Card>
 			</a>

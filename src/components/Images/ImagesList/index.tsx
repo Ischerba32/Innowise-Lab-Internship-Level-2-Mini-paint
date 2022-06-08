@@ -11,7 +11,8 @@ import {
 	getImagesSuccess,
 	setImages,
 } from '../../../redux/slices/imagesSlice';
-import { Button, Loader } from '../../UI';
+import { setIsOpened } from '../../../redux/slices/menuSlice';
+import { Button, Htag, Loader } from '../../UI';
 import ImageItem from '../ImageItem';
 import styles from './styles.module.scss';
 
@@ -22,6 +23,7 @@ const ImagesList = () => {
 	const { uid } = useSelector((state: State) => state.user);
 	const { isLoading } = useSelector((state: State) => state.images);
 	const images = useSelector(selectImagesByFilter);
+	const { isOpened } = useSelector((state: State) => state.burgerMenu);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -44,17 +46,27 @@ const ImagesList = () => {
 	// 	return <Loader speed={2} />;
 	// }
 
+	const handleClickCreateButton = () => {
+		isOpened && dispatch(setIsOpened(false));
+		navigate('/draw');
+	};
+
 	return (
 		<div className={styles.images}>
 			{isLoading && <Loader speed={2} />}
 			<div className={styles.images__container}>
+				{!images.length && (
+					<div className={styles.images__container_notFound}>
+						<Htag tag='h1'>No images</Htag>
+					</div>
+				)}
 				{images &&
 					images.map((image: Image) => (
 						<ImageItem image={image} key={image.imageId} />
 					))}
 			</div>
 			<div className={styles.images__create}>
-				<Button appearance='primary' onClick={() => navigate('/draw')}>
+				<Button appearance='primary' onClick={handleClickCreateButton}>
 					+ Create
 				</Button>
 			</div>

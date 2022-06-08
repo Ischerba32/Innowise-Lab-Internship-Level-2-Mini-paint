@@ -10,11 +10,12 @@ import State from '../../interfaces/state.interface';
 // import { useNavigate } from 'react-router-dom';
 import { resetCanvas } from '../../redux/slices/canvasSlice';
 import { saveImage } from '../../redux/slices/imagesSlice';
+import { setIsOpened } from '../../redux/slices/menuSlice';
 
 const Canvas = () => {
 	const imageId = uuidv4();
 
-	const { uid } = useSelector((state: State) => state.user);
+	const { uid, email } = useSelector((state: State) => state.user);
 	const { tool, lineColor, lineWidth, lineOpacity } = useSelector(
 		(state: State) => state.canvas
 	);
@@ -23,7 +24,7 @@ const Canvas = () => {
 
 	const { theme } = useTheme();
 	const {
-		wrapperRef,
+		containerRef,
 		canvasRef,
 		canvasWidth,
 		canvasHeight,
@@ -37,6 +38,7 @@ const Canvas = () => {
 	useEffect(() => {
 		const handleResetCanvas = () => {
 			dispatch(resetCanvas());
+			dispatch(setIsOpened(false));
 		};
 		return () => handleResetCanvas();
 	}, [dispatch]);
@@ -44,7 +46,7 @@ const Canvas = () => {
 	const handleSaveImage = async () => {
 		subCanvasRef.current?.toBlob(async (blob: Blob | null) => {
 			if (blob) {
-				dispatch(saveImage({ blob, imageId, uid }));
+				dispatch(saveImage({ blob, imageId, uid, email }));
 				toast.success('Image saved successfully');
 				// navigate('/');
 			}
@@ -59,7 +61,7 @@ const Canvas = () => {
 				handleSaveButton={handleSaveImage}
 				handleClearButton={clearCanvas}
 			/>
-			<div ref={wrapperRef} className={styles.canvas__wrapper}>
+			<div ref={containerRef} className={styles.canvas__container}>
 				<canvas ref={subCanvasRef} width={canvasWidth} height={canvasHeight} />
 				<canvas
 					ref={canvasRef}
