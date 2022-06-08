@@ -1,3 +1,10 @@
+import {
+	drawPen,
+	drawRectangle,
+	drawCircle,
+	drawLine,
+	drawStar,
+} from '../helpers/drawFigures';
 import { useRef, useEffect, MouseEvent, MutableRefObject } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -110,33 +117,19 @@ export const useDraw = ({
 
 			switch (tool) {
 				case Tools.PEN:
-					context.lineTo(event.nativeEvent.offsetX, event.nativeEvent.offsetY);
-					context.stroke();
+					drawPen(context, event);
 					break;
 				case Tools.RECTANGLE:
-					context.strokeRect(mouseDownX, mouseDownY, width, height);
-					context.stroke();
+					drawRectangle(context, mouseDownX, mouseDownY, width, height);
 					break;
 				case Tools.CIRCLE:
-					context.beginPath();
-					context.arc(
-						mouseDownX,
-						mouseDownY,
-						Math.sqrt(
-							(event.nativeEvent.offsetX - mouseDownX) ** 2 +
-								(event.nativeEvent.offsetY - mouseDownY) ** 2
-						),
-						0,
-						Math.PI * 2,
-						false
-					);
-					context.stroke();
+					drawCircle(context, event, mouseDownX, mouseDownY);
 					break;
 				case Tools.LINE:
-					context.beginPath();
-					context.moveTo(mouseDownX, mouseDownY);
-					context.lineTo(event.nativeEvent.offsetX, event.nativeEvent.offsetY);
-					context.stroke();
+					drawLine(context, event, mouseDownX, mouseDownY);
+					break;
+				case Tools.STAR:
+					drawStar(context, event, mouseDownX, mouseDownY);
 					break;
 				default:
 					break;
