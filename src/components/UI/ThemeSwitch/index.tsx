@@ -1,7 +1,7 @@
 import { useTheme } from '../../../hooks/useTheme';
 import styles from './styles.module.scss';
 
-export const ThemeSwitch = () => {
+export const ThemeSwitch = (): JSX.Element => {
 	const { theme, dispatchTheme } = useTheme();
 
 	const handleChangeTheme = () => {

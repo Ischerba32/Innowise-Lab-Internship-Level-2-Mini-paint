@@ -1,14 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import Image, {
 	ImageState,
 	SaveImageParams,
 } from '../../interfaces/image.interface';
 
-export const imagesSlice = createSlice({
+const imagesSlice = createSlice({
 	name: 'images',
 	initialState: {
 		isLoading: false,
 		images: [],
+		error: '',
 	},
 	reducers: {
 		getImages: (state: ImageState) => {
@@ -29,6 +31,16 @@ export const imagesSlice = createSlice({
 
 		saveImageSuccess: (state: ImageState) => {
 			state.isLoading = false;
+			state.error = '';
+		},
+
+		saveImageFailed: (state: ImageState, action: PayloadAction<Error>) => {
+			state.isLoading = false;
+			state.error = action.payload.message;
+		},
+
+		clearError: (state: ImageState) => {
+			state.error = '';
 		},
 	},
 });
@@ -39,6 +51,8 @@ export const {
 	saveImage,
 	saveImageSuccess,
 	setImages,
+	saveImageFailed,
+	clearError,
 } = imagesSlice.actions;
 
 export default imagesSlice.reducer;

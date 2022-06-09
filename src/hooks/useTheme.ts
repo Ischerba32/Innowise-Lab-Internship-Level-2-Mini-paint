@@ -1,5 +1,6 @@
 import { useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import UseThemeResult from '../interfaces/hooks/useTheme.interface';
 import State from '../interfaces/state.interface';
 import { setTheme } from '../redux/slices/themeSlice';

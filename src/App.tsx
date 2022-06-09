@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 import AuthRoute from './components/AuthRoute';
 import Canvas from './components/Canvas';
 import Home from './components/Home';

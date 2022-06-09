@@ -6,6 +6,7 @@ export enum Tools {
 	RECTANGLE = 'RECTANGLE',
 	LINE = 'LINE',
 	STAR = 'STAR',
+	POLYGON = 'POLYGON',
 }
 
 export interface UseDrawParams {

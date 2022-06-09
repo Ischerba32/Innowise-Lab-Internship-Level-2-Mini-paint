@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+
 import { auth } from '../../config/firebase';
 import { useTheme } from '../../hooks/useTheme';
 import AuthFormParams from '../../interfaces/authForm.interface';
@@ -38,7 +39,6 @@ const SignIn = () => {
 		<>
 			<AuthForm
 				onSubmit={handleSignIn}
-				// error={error}
 				formAction='SignIn'
 				actionLink='/signup'
 				actionTitle='SignUp'

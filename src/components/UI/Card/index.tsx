@@ -1,6 +1,7 @@
+import cn from 'classnames';
+
 import { ICardProps } from './props';
 import styles from './styles.module.scss';
-import cn from 'classnames';
 
 export const Card = ({
 	children,

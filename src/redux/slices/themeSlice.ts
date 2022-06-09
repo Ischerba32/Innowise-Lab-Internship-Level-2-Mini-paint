@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import defaultTheme from '../../helpers/defaultTheme';
 import ThemeState from '../../interfaces/theme.interface';
 
-export const themeSlice = createSlice({
+const themeSlice = createSlice({
 	name: 'theme',
 	initialState: {
 		theme: defaultTheme,

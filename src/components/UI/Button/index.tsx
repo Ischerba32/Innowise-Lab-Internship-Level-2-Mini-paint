@@ -1,6 +1,7 @@
-import styles from './styles.module.scss';
-import { ButtonProps } from './props';
 import cn from 'classnames';
+
+import { ButtonProps } from './props';
+import styles from './styles.module.scss';
 
 export const Button = ({
 	appearance,

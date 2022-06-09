@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import FilterState from '../../interfaces/filter.interface';
 
-export const filterSlice = createSlice({
+const filterSlice = createSlice({
 	name: 'filter',
 	initialState: {
 		user: 'all',

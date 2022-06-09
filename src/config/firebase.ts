@@ -9,10 +9,11 @@ import { getDatabase, ref, set } from 'firebase/database';
 import {
 	getDownloadURL,
 	getStorage,
-	uploadBytes,
 	ref as refStorage,
+	uploadBytes,
 } from 'firebase/storage';
 import moment from 'moment';
+
 import AuthFormParams from '../interfaces/authForm.interface';
 import { SaveImageParams } from '../interfaces/image.interface';
 
@@ -27,9 +28,10 @@ const firebaseConfig = {
 };
 
 const app = firebase.initializeApp(firebaseConfig);
+const storage = getStorage(app);
+
 export const auth = getAuth(app);
 export const database = getDatabase(app);
-export const storage = getStorage(app);
 
 export const handleSignIn = async ({ email, password }: AuthFormParams) => {
 	return await signInWithEmailAndPassword(auth, email, password);

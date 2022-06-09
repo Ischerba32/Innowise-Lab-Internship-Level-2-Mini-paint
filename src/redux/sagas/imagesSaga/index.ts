@@ -1,18 +1,20 @@
 import { AnyAction } from 'redux';
-import { all, takeEvery } from 'redux-saga/effects';
-import { handleSaveImage } from '../../../config/firebase';
+import { all, put, takeEvery } from 'redux-saga/effects';
 
-export function* saveImageWorker(data: AnyAction) {
+import { handleSaveImage } from '../../../config/firebase';
+import { saveImageFailed, saveImageSuccess } from '../../slices/imagesSlice';
+
+function* saveImageWorker(data: AnyAction) {
 	const { payload } = data;
 	try {
 		yield handleSaveImage(payload);
-		yield console.log('Image saved successfully');
+		yield put(saveImageSuccess());
 	} catch (error) {
-		console.error(error as Error);
+		yield put(saveImageFailed(error as Error));
 	}
 }
 
-export function* saveImageWatcher() {
+function* saveImageWatcher() {
 	yield takeEvery('images/saveImage', saveImageWorker);
 }
 

@@ -1,16 +1,17 @@
 import { memo, useEffect } from 'react';
-import CanvasMenu from '../CanvasMenu';
-import { v4 as uuidv4 } from 'uuid';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
-import styles from './styles.module.scss';
+import { v4 as uuidv4 } from 'uuid';
+
 import { useDraw } from '../../hooks/useDraw';
 import { useTheme } from '../../hooks/useTheme';
-import { useDispatch, useSelector } from 'react-redux';
 import State from '../../interfaces/state.interface';
 // import { useNavigate } from 'react-router-dom';
 import { resetCanvas } from '../../redux/slices/canvasSlice';
-import { saveImage } from '../../redux/slices/imagesSlice';
+import { clearError, saveImage } from '../../redux/slices/imagesSlice';
 import { setIsOpened } from '../../redux/slices/menuSlice';
+import CanvasMenu from '../CanvasMenu';
+import styles from './styles.module.scss';
 
 const Canvas = () => {
 	const imageId = uuidv4();
@@ -19,6 +20,7 @@ const Canvas = () => {
 	const { tool, lineColor, lineWidth, lineOpacity } = useSelector(
 		(state: State) => state.canvas
 	);
+	const { isLoading, error } = useSelector((state: State) => state.images);
 	const dispatch = useDispatch();
 	// const navigate = useNavigate();
 
@@ -43,11 +45,22 @@ const Canvas = () => {
 		return () => handleResetCanvas();
 	}, [dispatch]);
 
+	useEffect(() => {
+		if (isLoading) {
+			if (error) {
+				toast.error(error);
+				dispatch(clearError());
+			} else {
+				toast.success('Image saved successfully');
+			}
+		}
+	}, [error, dispatch, isLoading]);
+
 	const handleSaveImage = async () => {
 		subCanvasRef.current?.toBlob(async (blob: Blob | null) => {
 			if (blob) {
 				dispatch(saveImage({ blob, imageId, uid, email }));
-				toast.success('Image saved successfully');
+				// toast.success('Image saved successfully');
 				// navigate('/');
 			}
 		}, 'image/webp');

@@ -1,9 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+
 import IAuthForm from '../../interfaces/authForm.interface';
 import { Button, Card, Input } from '../UI';
-import styles from './styles.module.scss';
 import AuthFormProps from './props';
+import styles from './styles.module.scss';
 
 const AuthForm = ({
 	onSubmit,
