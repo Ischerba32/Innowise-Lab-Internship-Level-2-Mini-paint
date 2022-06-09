@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import CanvasState from '../../interfaces/canvas.interface';
 import { Tools } from '../../interfaces/hooks/useDraw.interface';
 
-export const canvasSlice = createSlice({
+const canvasSlice = createSlice({
 	name: 'canvas',
 	initialState: {
 		tool: Tools.PEN,

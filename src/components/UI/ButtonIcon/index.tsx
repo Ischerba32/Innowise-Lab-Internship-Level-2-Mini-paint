@@ -1,6 +1,7 @@
-import styles from './styles.module.scss';
-import { ButtonIconProps, icons } from './props';
 import cn from 'classnames';
+
+import { ButtonIconProps, icons } from './props';
+import styles from './styles.module.scss';
 
 export const ButtonIcon = ({
 	icon,

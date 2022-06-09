@@ -1,16 +1,18 @@
+import { MouseEvent, MutableRefObject, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import {
-	drawPen,
-	drawRectangle,
 	drawCircle,
 	drawLine,
+	drawPen,
+	drawPolygon,
+	drawRectangle,
 	drawStar,
 } from '../helpers/drawFigures';
-import { useRef, useEffect, MouseEvent, MutableRefObject } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import {
+	Tools,
 	UseDrawParams,
 	UseDrawReturnParams,
-	Tools,
 } from '../interfaces/hooks/useDraw.interface';
 import State from '../interfaces/state.interface';
 import {
@@ -130,6 +132,9 @@ export const useDraw = ({
 					break;
 				case Tools.STAR:
 					drawStar(context, event, mouseDownX, mouseDownY);
+					break;
+				case Tools.POLYGON:
+					drawPolygon(context, event, mouseDownX, mouseDownY);
 					break;
 				default:
 					break;

@@ -1,8 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit';
+
 import State from '../interfaces/state.interface';
 
-export const selectAllImages = (state: State) => state.images.images;
-export const selectActiveFilter = (state: State) => state.filter.user;
+const selectAllImages = (state: State) => state.images.images;
+const selectActiveFilter = (state: State) => state.filter.user;
 
 export const selectImagesByFilter = createSelector(
 	[selectAllImages, selectActiveFilter],

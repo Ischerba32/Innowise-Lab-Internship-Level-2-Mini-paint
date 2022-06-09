@@ -2,6 +2,7 @@ import { onValue, ref } from 'firebase/database';
 import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
 import { database } from '../../../config/firebase';
 import Image from '../../../interfaces/image.interface';
 import State from '../../../interfaces/state.interface';
@@ -41,10 +42,6 @@ const ImagesList = () => {
 		};
 		fetchData();
 	}, [uid, dispatch]);
-
-	// if (isLoading) {
-	// 	return <Loader speed={2} />;
-	// }
 
 	const handleClickCreateButton = () => {
 		isOpened && dispatch(setIsOpened(false));

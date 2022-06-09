@@ -1,8 +1,9 @@
 import { onAuthStateChanged } from 'firebase/auth';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+
 import { auth } from '../../config/firebase';
 import { useTheme } from '../../hooks/useTheme';
 import AuthFormParams from '../../interfaces/authForm.interface';

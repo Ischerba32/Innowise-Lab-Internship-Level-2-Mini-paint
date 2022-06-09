@@ -8,6 +8,7 @@ export default interface Image {
 export interface ImageState {
 	isLoading: boolean;
 	images: Image[];
+	error?: string;
 }
 
 export interface SaveImageParams {

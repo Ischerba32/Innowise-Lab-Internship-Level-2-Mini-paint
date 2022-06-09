@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import MenuState from '../../interfaces/menu.interface';
 
-export const menuSlice = createSlice({
+const menuSlice = createSlice({
 	name: 'burgerMenu',
 	initialState: {
 		isOpened: false,

@@ -1,21 +1,22 @@
+import cn from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { SingleValue } from 'react-select';
+
 import { getToolsSelectOptions } from '../../helpers/selectOptions';
 import { Tools } from '../../interfaces/hooks/useDraw.interface';
-import { OptionParams } from '../UI/CustomSelect/props';
-import { Button, Card, CustomSelect } from '../UI';
-import CanvasMenuProps from './props';
-import cn from 'classnames';
-import styles from './styles.module.scss';
+import State from '../../interfaces/state.interface';
 import {
 	setLineColor,
 	setLineOpacity,
 	setLineWidth,
 	setTool,
 } from '../../redux/slices/canvasSlice';
-import { ButtonIcon } from '../UI/ButtonIcon';
-import State from '../../interfaces/state.interface';
 import { setIsOpened } from '../../redux/slices/menuSlice';
+import { Button, Card, CustomSelect } from '../UI';
+import { ButtonIcon } from '../UI/ButtonIcon';
+import { OptionParams } from '../UI/CustomSelect/props';
+import CanvasMenuProps from './props';
+import styles from './styles.module.scss';
 
 const CanvasMenu = ({
 	lineWidth,

@@ -1,7 +1,8 @@
+import cn from 'classnames';
 import { ForwardedRef, forwardRef } from 'react';
+
 import { IInputProps } from './props';
 import styles from './styles.module.scss';
-import cn from 'classnames';
 
 export const Input = forwardRef(
 	(
