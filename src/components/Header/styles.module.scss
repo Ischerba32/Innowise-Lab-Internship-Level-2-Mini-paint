@@ -3,11 +3,21 @@
 	grid-template-columns: 1fr auto;
 	align-items: center;
 	justify-items: start;
+
 	background: var(--card);
 	color: var(--text-color);
+	
 	padding: 15px 25px;
 	border-radius: 10px;
 	box-shadow: 0 4px 4px rgb(0 0 0 / 5%);
+
+	h3 {
+		margin: 0;
+
+		font-size: 25px;
+		font-weight: 500;
+		line-height: 27px;
+	}
 
 	&__actions {
 		display: grid;

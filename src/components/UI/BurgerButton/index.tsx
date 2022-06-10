@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { ButtonIconProps, icons } from './props';
 import styles from './styles.module.scss';
 
-export const ButtonIcon = ({
+export const BurgerButton = ({
 	icon,
 	className,
 	...props

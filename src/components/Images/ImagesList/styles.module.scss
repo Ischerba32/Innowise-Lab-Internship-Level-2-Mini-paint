@@ -13,6 +13,13 @@
       text-transform: uppercase;
       margin: 0 auto;
       color: var(--text-color);
+
+      h1 {
+        margin: 0;
+        font-size: 46px;
+        font-weight: 500;
+        line-height: 35px;
+      }
     }
   }
 

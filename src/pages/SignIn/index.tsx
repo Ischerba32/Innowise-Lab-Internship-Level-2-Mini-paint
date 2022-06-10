@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
+import AuthForm from '../../components/AuthForm';
 import { auth } from '../../config/firebase';
 import { useTheme } from '../../hooks/useTheme';
 import AuthFormParams from '../../interfaces/authForm.interface';
 import State from '../../interfaces/state.interface';
 import { clearError, signIn } from '../../redux/slices/userSlice';
-import AuthForm from '../AuthForm';
 
 const SignIn = () => {
 	const { error, uid } = useSelector((state: State) => state.user);

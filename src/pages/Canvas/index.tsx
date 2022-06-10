@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 
+import CanvasMenu from '../../components/CanvasMenu';
 import { useDraw } from '../../hooks/useDraw';
 import { useTheme } from '../../hooks/useTheme';
 import State from '../../interfaces/state.interface';
@@ -10,7 +11,6 @@ import State from '../../interfaces/state.interface';
 import { resetCanvas } from '../../redux/slices/canvasSlice';
 import { clearError, saveImage } from '../../redux/slices/imagesSlice';
 import { setIsOpened } from '../../redux/slices/menuSlice';
-import CanvasMenu from '../CanvasMenu';
 import styles from './styles.module.scss';
 
 const Canvas = () => {

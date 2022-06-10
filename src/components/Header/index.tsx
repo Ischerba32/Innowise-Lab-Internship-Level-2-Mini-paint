@@ -7,8 +7,8 @@ import State from '../../interfaces/state.interface';
 import { filterImages } from '../../redux/slices/filterSlice';
 import { setIsOpened } from '../../redux/slices/menuSlice';
 import { signOut } from '../../redux/slices/userSlice';
-import { Button, Card, CustomSelect, Htag, ThemeSwitch } from '../UI';
-import { ButtonIcon } from '../UI/ButtonIcon';
+import { Button, Card, CustomSelect, ThemeSwitch } from '../UI';
+import { BurgerButton } from '../UI/BurgerButton';
 import { OptionParams } from '../UI/CustomSelect/props';
 import { HeaderProps } from './props';
 import styles from './styles.module.scss';
@@ -39,7 +39,7 @@ export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
 	return (
 		<header className={cn(className, styles.header)} {...props}>
 			<div>
-				<Htag tag='h3'>Mini-paint</Htag>
+				<h3>Mini-paint</h3>
 			</div>
 			<div className={styles.header__actions}>
 				<CustomSelect options={selectOptions} onChange={handleChangeSelect} />
@@ -48,7 +48,7 @@ export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
 					SignOut
 				</Button>
 			</div>
-			<ButtonIcon
+			<BurgerButton
 				className={styles.header__burgerButton}
 				icon='menu'
 				onClick={handleMenuOpen}
@@ -66,7 +66,7 @@ export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
 						SignOut
 					</Button>
 				</div>
-				<ButtonIcon
+				<BurgerButton
 					className={styles.header__menu_closeButton}
 					icon='close'
 					onClick={handleMenuClose}

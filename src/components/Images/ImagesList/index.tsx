@@ -13,7 +13,7 @@ import {
 	setImages,
 } from '../../../redux/slices/imagesSlice';
 import { setIsOpened } from '../../../redux/slices/menuSlice';
-import { Button, Htag, Loader } from '../../UI';
+import { Button, Loader } from '../../UI';
 import ImageItem from '../ImageItem';
 import styles from './styles.module.scss';
 
@@ -54,7 +54,7 @@ const ImagesList = () => {
 			<div className={styles.images__container}>
 				{!images.length && (
 					<div className={styles.images__container_notFound}>
-						<Htag tag='h1'>No images</Htag>
+						<h1>No images</h1>
 					</div>
 				)}
 				{images &&

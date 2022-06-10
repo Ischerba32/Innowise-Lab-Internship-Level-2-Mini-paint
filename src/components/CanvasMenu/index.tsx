@@ -13,7 +13,7 @@ import {
 } from '../../redux/slices/canvasSlice';
 import { setIsOpened } from '../../redux/slices/menuSlice';
 import { Button, Card, CustomSelect } from '../UI';
-import { ButtonIcon } from '../UI/ButtonIcon';
+import { BurgerButton } from '../UI/BurgerButton';
 import { OptionParams } from '../UI/CustomSelect/props';
 import CanvasMenuProps from './props';
 import styles from './styles.module.scss';
@@ -88,7 +88,7 @@ const CanvasMenu = ({
 					</Button>
 				</div>
 			</div>
-			<ButtonIcon
+			<BurgerButton
 				className={styles.canvasMenu__burgerButton}
 				icon='menu'
 				onClick={handleMenuOpen}
@@ -148,7 +148,7 @@ const CanvasMenu = ({
 						</Button>
 					</div>
 				</div>
-				<ButtonIcon
+				<BurgerButton
 					className={styles.canvasMenu__burgerMenu_closeButton}
 					icon='close'
 					onClick={handleMenuClose}
