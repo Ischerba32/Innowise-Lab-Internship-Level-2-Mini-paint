@@ -40,54 +40,58 @@ const CanvasMenu = ({
 		dispatch(setIsOpened(false));
 	};
 
+	const CanvasMenuDraw = (
+		<>
+			<div className={styles.canvasMenu__draw_tools}>
+				<CustomSelect options={selectOptions} onChange={handleChangeSelect} />
+			</div>
+			<div className={styles.canvasMenu__draw_color}>
+				<label>Color</label>
+				<input
+					type='color'
+					onChange={(e) => {
+						dispatch(setLineColor(e.target.value));
+					}}
+				/>
+			</div>
+			<div className={styles.canvasMenu__draw_width}>
+				<label>Brush Width </label>
+				<input
+					type='range'
+					min='1'
+					max='100'
+					value={lineWidth}
+					onChange={(e) => {
+						dispatch(setLineWidth(+e.target.value));
+					}}
+				/>
+			</div>
+			<div className={styles.canvasMenu__draw_opacity}>
+				<label>Brush Opacity</label>
+				<input
+					type='range'
+					min='0'
+					max='100'
+					value={lineOpacity * 100}
+					onChange={(e) => {
+						dispatch(setLineOpacity(+e.target.value / 100));
+					}}
+				/>
+			</div>
+			<div className={styles.canvasMenu__draw_actions}>
+				<Button appearance='primary' onClick={handleSaveButton}>
+					Save
+				</Button>
+				<Button appearance='ghost' onClick={handleClearButton}>
+					Clear
+				</Button>
+			</div>
+		</>
+	);
+
 	return (
 		<div className={styles.canvasMenu}>
-			<div className={styles.canvasMenu__draw}>
-				<div className={styles.canvasMenu__draw_tools}>
-					<CustomSelect options={selectOptions} onChange={handleChangeSelect} />
-				</div>
-				<div className={styles.canvasMenu__draw_color}>
-					<label>Color</label>
-					<input
-						type='color'
-						onChange={(e) => {
-							dispatch(setLineColor(e.target.value));
-						}}
-					/>
-				</div>
-				<div className={styles.canvasMenu__draw_width}>
-					<label>Brush Width </label>
-					<input
-						type='range'
-						min='1'
-						max='100'
-						value={lineWidth}
-						onChange={(e) => {
-							dispatch(setLineWidth(+e.target.value));
-						}}
-					/>
-				</div>
-				<div className={styles.canvasMenu__draw_opacity}>
-					<label>Brush Opacity</label>
-					<input
-						type='range'
-						min='0'
-						max='100'
-						value={lineOpacity * 100}
-						onChange={(e) => {
-							dispatch(setLineOpacity(+e.target.value / 100));
-						}}
-					/>
-				</div>
-				<div className={styles.canvasMenu__draw_actions}>
-					<Button appearance='primary' onClick={handleSaveButton}>
-						Save
-					</Button>
-					<Button appearance='ghost' onClick={handleClearButton}>
-						Clear
-					</Button>
-				</div>
-			</div>
+			<div className={styles.canvasMenu__draw}>{CanvasMenuDraw}</div>
 			<BurgerButton
 				className={styles.canvasMenu__burgerButton}
 				icon='menu'
@@ -100,53 +104,7 @@ const CanvasMenu = ({
 				})}
 			>
 				<div className={styles.canvasMenu__burgerMenu_content}>
-					<div className={styles.canvasMenu__draw_tools}>
-						<CustomSelect
-							options={selectOptions}
-							onChange={handleChangeSelect}
-						/>
-					</div>
-					<div className={styles.canvasMenu__draw_color}>
-						<label>Color</label>
-						<input
-							type='color'
-							onChange={(e) => {
-								dispatch(setLineColor(e.target.value));
-							}}
-						/>
-					</div>
-					<div className={styles.canvasMenu__draw_width}>
-						<label>Brush Width </label>
-						<input
-							type='range'
-							min='1'
-							max='100'
-							value={lineWidth}
-							onChange={(e) => {
-								dispatch(setLineWidth(+e.target.value));
-							}}
-						/>
-					</div>
-					<div className={styles.canvasMenu__draw_opacity}>
-						<label>Brush Opacity</label>
-						<input
-							type='range'
-							min='0'
-							max='100'
-							value={lineOpacity * 100}
-							onChange={(e) => {
-								dispatch(setLineOpacity(+e.target.value / 100));
-							}}
-						/>
-					</div>
-					<div className={styles.canvasMenu__draw_actions}>
-						<Button appearance='primary' onClick={handleSaveButton}>
-							Save
-						</Button>
-						<Button appearance='ghost' onClick={handleClearButton}>
-							Clear
-						</Button>
-					</div>
+					{CanvasMenuDraw}
 				</div>
 				<BurgerButton
 					className={styles.canvasMenu__burgerMenu_closeButton}

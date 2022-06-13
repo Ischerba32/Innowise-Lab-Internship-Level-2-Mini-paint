@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Select, { SingleValue } from 'react-select';
 
 import { CustomSelectProps, OptionParams } from './props';
@@ -6,11 +6,11 @@ import { CustomSelectProps, OptionParams } from './props';
 export const CustomSelect = ({ options, onChange }: CustomSelectProps) => {
 	const [activeOption, setActiceOption] = useState(options[0].value);
 
-	const getValue = () => {
+	const getValue = useMemo(() => {
 		return activeOption
 			? options.find((option) => option.value === activeOption)
 			: '';
-	};
+	}, [activeOption, options]);
 
 	const handleChangeSelect = (newValue: SingleValue<string | OptionParams>) => {
 		setActiceOption((newValue as OptionParams).value);
@@ -21,7 +21,7 @@ export const CustomSelect = ({ options, onChange }: CustomSelectProps) => {
 		<Select
 			onChange={handleChangeSelect}
 			options={options}
-			value={getValue()}
+			value={getValue}
 			classNamePrefix='custom-select'
 			defaultValue={options[0].value}
 		/>

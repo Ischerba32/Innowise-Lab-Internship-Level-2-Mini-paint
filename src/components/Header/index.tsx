@@ -36,18 +36,22 @@ export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
 
 	const selectOptions = getUsersOptions();
 
+	const HeaderActions = (
+		<>
+			<CustomSelect options={selectOptions} onChange={handleChangeSelect} />
+			<ThemeSwitch />
+			<Button appearance='primary' onClick={handleSignOut}>
+				SignOut
+			</Button>
+		</>
+	);
+
 	return (
 		<header className={cn(className, styles.header)} {...props}>
 			<div>
 				<h3>Mini-paint</h3>
 			</div>
-			<div className={styles.header__actions}>
-				<CustomSelect options={selectOptions} onChange={handleChangeSelect} />
-				<ThemeSwitch />
-				<Button appearance='primary' onClick={handleSignOut}>
-					SignOut
-				</Button>
-			</div>
+			<div className={styles.header__actions}>{HeaderActions}</div>
 			<BurgerButton
 				className={styles.header__burgerButton}
 				icon='menu'
@@ -59,13 +63,7 @@ export const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
 					[styles.header__menu_closed]: !isOpened,
 				})}
 			>
-				<div className={styles.header__menu_content}>
-					<CustomSelect options={selectOptions} onChange={handleChangeSelect} />
-					<ThemeSwitch />
-					<Button appearance='primary' onClick={handleSignOut}>
-						SignOut
-					</Button>
-				</div>
+				<div className={styles.header__menu_content}>{HeaderActions}</div>
 				<BurgerButton
 					className={styles.header__menu_closeButton}
 					icon='close'

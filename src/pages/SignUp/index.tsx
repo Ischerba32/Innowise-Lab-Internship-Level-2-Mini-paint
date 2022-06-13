@@ -41,7 +41,7 @@ const SignUp = () => {
 				onSubmit={handleSignUp}
 				formAction='SignUp'
 				actionLink='/signin'
-				actionTitle='Back to SignIn'
+				actionTitle='SignIn'
 			/>
 			<ToastContainer
 				position='top-right'

@@ -1,4 +1,10 @@
-import { MouseEvent, MutableRefObject, useEffect, useRef } from 'react';
+import {
+	MouseEvent,
+	MutableRefObject,
+	useEffect,
+	useLayoutEffect,
+	useRef,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -30,9 +36,9 @@ export const useDraw = ({
 	lineWidth,
 	lineOpacity,
 }: UseDrawParams): UseDrawReturnParams => {
-	const canvasRef = useRef<HTMLCanvasElement | null>(null);
-	const subCanvasRef = useRef<HTMLCanvasElement | null>(null);
-	const containerRef = useRef<HTMLDivElement | null>(null);
+	const canvasRef = useRef<HTMLCanvasElement>(null);
+	const subCanvasRef = useRef<HTMLCanvasElement>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
 
 	const {
 		canvasWidth,
@@ -44,7 +50,7 @@ export const useDraw = ({
 	} = useSelector((state: State) => state.canvas);
 	const dispatch = useDispatch();
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (
 			canvasRef.current &&
 			subCanvasRef.current &&
