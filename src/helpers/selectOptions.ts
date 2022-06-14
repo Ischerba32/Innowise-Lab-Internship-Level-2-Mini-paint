@@ -1,11 +1,11 @@
-import { onValue, ref } from 'firebase/database';
+import { get, ref } from 'firebase/database';
 
 import { OptionParams } from '../components/UI/CustomSelect/props';
 import { database } from '../config/firebase';
 
 export const getUsersOptions = (): OptionParams[] => {
 	const result: OptionParams[] = [{ value: 'all', label: 'all' }];
-	onValue(ref(database, `users`), (snapshot) => {
+	get(ref(database, `users`)).then((snapshot) => {
 		if (snapshot.val()) {
 			const data: { email: string; uid: string }[] = Object.values(
 				snapshot.val()

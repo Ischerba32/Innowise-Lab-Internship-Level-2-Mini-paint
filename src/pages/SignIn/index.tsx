@@ -18,10 +18,9 @@ const SignIn = () => {
 	const { theme } = useTheme();
 
 	useEffect(() => {
-		const authCheck = onAuthStateChanged(auth, (user) => {
+		return onAuthStateChanged(auth, (user) => {
 			if (user) navigate('/');
 		});
-		authCheck();
 	}, [navigate, uid]);
 
 	useEffect(() => {

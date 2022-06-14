@@ -27,20 +27,15 @@ const ImagesList = () => {
 	const { isOpened } = useSelector((state: State) => state.burgerMenu);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			dispatch(getImages());
-			console.log('fetching images');
-			if (uid) {
-				await onValue(ref(database, `images`), (snapshot) => {
-					if (snapshot.val()) {
-						console.log('fetched images');
-						dispatch(setImages(Object.values(snapshot.val())));
-					}
-					dispatch(getImagesSuccess());
-				});
-			}
-		};
-		fetchData();
+		dispatch(getImages());
+		if (uid) {
+			return onValue(ref(database, `images`), (snapshot) => {
+				if (snapshot.val()) {
+					dispatch(setImages(Object.values(snapshot.val())));
+				}
+				dispatch(getImagesSuccess());
+			});
+		}
 	}, [uid, dispatch]);
 
 	const handleClickCreateButton = () => {

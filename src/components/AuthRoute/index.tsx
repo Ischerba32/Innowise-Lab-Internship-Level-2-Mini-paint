@@ -15,15 +15,13 @@ const AuthRoute = ({ children }: AuthRouteProps) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		const authCheck = onAuthStateChanged(auth, (user) => {
+		return onAuthStateChanged(auth, (user) => {
 			if (user) {
 				dispatch(checkAuthSuccess({ uid: user.uid, email: user?.email }));
 			} else {
 				navigate('/signin');
 			}
 		});
-
-		authCheck();
 	}, [dispatch, navigate, uid]);
 
 	return <>{children}</>;
